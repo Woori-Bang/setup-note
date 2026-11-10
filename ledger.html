@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>옷 가계부</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --bg:#eeece8; --paper:#f8f7f4; --fg:#22201d; --muted:#6a655e; --line:#d8d3cb;
+  --ink:#3b3226; --ink-fg:#f6f3ee; --ok:#3f6b4a; --warn:#9a3d1f; --hi:#efe4cf;
+  --f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#171614; --paper:#201e1b; --fg:#ece8e2; --muted:#a39d94; --line:#36322d;
+  --ink:#e4dccf; --ink-fg:#1b1916; --ok:#8fc39c; --warn:#f0a07f; --hi:#3a3226; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#171614; --paper:#201e1b; --fg:#ece8e2; --muted:#a39d94; --line:#36322d;
+  --ink:#e4dccf; --ink-fg:#1b1916; --ok:#8fc39c; --warn:#f0a07f; --hi:#3a3226; color-scheme:dark }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f);font-size:15px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:64px}
+.wrap{max-width:1040px;margin:0 auto}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* 공통 메뉴 */
+.menu{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line);
+  margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:10px max(16px,env(safe-area-inset-left,0px))}
+.menu .in{max-width:1040px;margin:0 auto;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none}
+.menu a{flex:none;text-decoration:none;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;color:var(--muted);white-space:nowrap}
+.menu a:hover{color:var(--fg);background:var(--paper)}
+.menu a[aria-current="page"]{color:var(--ink-fg);background:var(--ink)}
+.menu .lb{margin-left:auto;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);color:var(--fg)}
+.menu .lb svg{width:16px;height:16px}
+
+header{padding-block:28px 20px;display:grid;gap:10px}
+.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted)}
+h1{font-weight:800;font-size:clamp(28px,5vw,40px);line-height:1.2;margin:0}
+.lede{margin:0;color:var(--muted);max-width:62ch}
+
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+@media (max-width:720px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:14px 16px}
+.stat .k{font-size:12px;color:var(--muted)}
+.stat .v{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.3}
+.stat .s{font-size:12px;color:var(--muted)}
+
+h2.sec{font-size:18px;font-weight:800;margin:28px 0 12px}
+.order{background:var(--paper);border:1px solid var(--line);border-radius:6px;margin-bottom:14px;overflow:hidden}
+.ohead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.ohead .date{font-weight:800;font-variant-numeric:tabular-nums}
+.ohead .shop{font-size:13px;font-weight:700;padding:2px 10px;border-radius:999px;background:var(--hi)}
+.ohead .meta{font-size:12px;color:var(--muted)}
+.ohead .sum{margin-left:auto;font-weight:800;font-size:18px;font-variant-numeric:tabular-nums}
+.rows{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row img{width:64px;height:78px;object-fit:cover;border-radius:3px;background:var(--line)}
+.row .nm{font-weight:700;font-size:14px;line-height:1.4}
+.row .op{font-size:12px;color:var(--muted)}
+.row .pr{font-variant-numeric:tabular-nums;font-weight:600;text-align:right;white-space:nowrap}
+.row .pr small{display:block;font-weight:400;font-size:11px;color:var(--muted)}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;margin-left:6px;vertical-align:1px}
+.badge.ok{color:var(--ok);border:1px solid currentColor}
+.badge.warn{color:var(--warn);border:1px solid currentColor}
+.ofoot{padding:10px 16px 14px;font-size:12px;color:var(--muted);display:grid;gap:4px;background:color-mix(in srgb,var(--paper) 70%,var(--bg))}
+.ofoot b{color:var(--fg);font-weight:600}
+.note{font-size:12px;color:var(--muted);margin-top:18px}
+</style>
+</head>
+<body>
+<nav class="menu" aria-label="스타일 메뉴"><div class="in">
+  <a href="index.html">사계절 셋업 구매 노트</a>
+  <a href="casual.html">사계절 캐주얼</a>
+  <a href="winter.html">겨울 캐주얼</a>
+  <a href="ledger.html" aria-current="page">옷 가계부</a>
+  <a class="lb" href="inner.html" title="이너 룩북"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7.5" height="9" rx="1"/><rect x="13.5" y="3" width="7.5" height="5.5" rx="1"/><rect x="13.5" y="11.5" width="7.5" height="9.5" rx="1"/><rect x="3" y="15" width="7.5" height="6" rx="1"/></svg>이너 룩북</a>
+</div></nav>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">옷 가계부 · 2026년 11월</div>
+  <h1>옷 가계부</h1>
+  <p class="lede">구매한 옷을 주문 단위로 모아 둔 기록이에요. 결제 금액은 쿠폰·결제 할인까지 뺀 실제 결제 기준이고, 상품별 금액은 주문서에 표시된 금액이에요.</p>
+</header>
+
+<div class="stats">
+  <div class="stat"><div class="k">11월 총 지출</div><div class="v">556,860원</div><div class="s">주문 2건</div></div>
+  <div class="stat"><div class="k">구매한 옷</div><div class="v">6벌</div><div class="s">셋업 3세트</div></div>
+  <div class="stat"><div class="k">무신사</div><div class="v">289,870원</div><div class="s">4벌</div></div>
+  <div class="stat"><div class="k">29CM</div><div class="v">266,990원</div><div class="s">2벌</div></div>
+</div>
+
+<h2 class="sec">구매 이력</h2>
+
+<article class="order">
+  <div class="ohead">
+    <span class="date">2026.11.10</span><span class="shop">29CM</span>
+    <span class="meta">주문번호 ORD20261110-6679467 · 카카오페이(페이머니)</span>
+    <span class="sum">266,990원</span>
+  </div>
+  <ul class="rows">
+    <li class="row"><img src="img/ls-basic.jpg" style="object-position:center 25%" alt="리스트 베이직 테일러드 원버튼 셋업 자켓 브라운">
+      <div><div class="nm">리스트 · 베이직 테일러드 원버튼 셋업 자켓<span class="badge ok">결제완료</span></div><div class="op">브라운 · 55 · TWSJKQ82010</div></div>
+      <div class="pr">170,840원<small>정가 398,000원</small></div></li>
+    <li class="row"><img src="img/ls-basic.jpg" style="object-position:center 85%" alt="리스트 베이직 스트레이트 셋업 팬츠 브라운">
+      <div><div class="nm">리스트 · 베이직 스트레이트 셋업 팬츠<span class="badge ok">결제완료</span></div><div class="op">브라운 · 55 · TWSSLQ8201L</div></div>
+      <div class="pr">102,160원<small>정가 238,000원</small></div></li>
+  </ul>
+  <div class="ofoot">
+    <div>할인: 상품 할인 -318,000 · 이구위크 장바구니 쿠폰 -45,000 · 적립금 -10 · 카카오페이 페이머니 -6,000</div>
+    <div>현금영수증 소득공제용 발급 · 배송 11.13(금)까지 출고 예정</div>
+    <div><b>핏 메모:</b> 상의 어깨 34·가슴 44, 바지 인심 77 — 받으면 기록하기</div>
+  </div>
+</article>
+
+<article class="order">
+  <div class="ohead">
+    <span class="date">2026.11 초</span><span class="shop">무신사</span>
+    <span class="meta">카카오페이 · 4벌 한 주문</span>
+    <span class="sum">289,870원</span>
+  </div>
+  <ul class="rows">
+    <li class="row"><img src="img/1618311-0.jpg" style="object-position:center 25%" alt="무신사 스탠다드 우먼즈 오버사이즈 블레이저 네이비">
+      <div><div class="nm">무신사 스탠다드 · 우먼즈 오버사이즈 블레이저 [네이비]<span class="badge ok">실물 만족</span></div><div class="op">S</div></div>
+      <div class="pr">84,920원<small>정가 99,900원</small></div></li>
+    <li class="row"><img src="img/6525757-0.jpg" style="object-position:center 75%" alt="무신사 스탠다드 플레어 히든 밴딩 슬랙스 다크 네이비">
+      <div><div class="nm">무신사 스탠다드 · 우먼즈 플레어 히든 밴딩 슬랙스 [다크 네이비]<span class="badge ok">실물 만족</span></div><div class="op">25</div></div>
+      <div class="pr">36,890원<small>정가 49,900원</small></div></li>
+    <li class="row"><img src="img/3851760-0.jpg" style="object-position:center 30%" alt="시야쥬 루즈핏 싱글 블레이저 차콜">
+      <div><div class="nm">시야쥬 · SIOT4099 루즈핏 싱글 블레이저_Charcoal<span class="badge warn">핏 안 맞음</span></div><div class="op">One size</div></div>
+      <div class="pr">128,520원<small>정가 189,000원</small></div></li>
+    <li class="row"><img src="img/3853373-0.jpg" style="object-position:center 60%" alt="시야쥬 원턱 루즈핏 부츠컷 슬랙스 차콜">
+      <div><div class="nm">시야쥬 · SIPT7108 원턱 루즈핏 부츠컷 슬랙스_Charcoal<span class="badge warn">핏 안 맞음</span></div><div class="op">S</div></div>
+      <div class="pr">66,960원<small>정가 93,000원</small></div></li>
+  </ul>
+  <div class="ofoot">
+    <div>할인: 상품 쿠폰(무탠다드 15%, 시야쥬 20%) · 무배당발 장바구니 쿠폰 10% · 적립금 선할인 -2,870 · 카카오페이 페이머니 -12,000</div>
+    <div><b>핏 메모:</b> 네이비 셋업은 실물 괜찮음, 위아래 색이 살짝 달라요. 시야쥬 차콜은 바지가 짧고(인심 72) 상의가 너무 커요(어깨 46).</div>
+  </div>
+</article>
+
+<p class="note">무신사 주문의 날짜와 상품별 금액은 주문서 화면 기준이에요. 반품·교환을 하면 알려 주세요. 가계부에 반영할게요.</p>
+</div>
+
+<!-- 사진 크게 보기 (룩북 뷰어) -->
+<style id="lbx-style">
+.zoomable{cursor:zoom-in;transition:opacity .15s}
+.zoomable:hover{opacity:.88}
+.lbx{position:fixed;inset:0;z-index:100;background:rgba(18,16,14,.94);display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  padding:56px max(16px,env(safe-area-inset-right,0px)) max(20px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lbx.on{display:flex}
+.lbx figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:10px;max-width:100%}
+.lbx img{display:block;max-width:min(92vw,960px);max-height:78vh;object-fit:contain;border-radius:4px;background:#f4f3f1}
+.lbx figcaption{color:#ece8e2;font-size:14px;line-height:1.5;text-align:center;max-width:60ch}
+.lbx .cnt{color:#a39d94;font-size:12px;font-variant-numeric:tabular-nums}
+.lbx button{position:absolute;border:0;border-radius:999px;width:44px;height:44px;font-size:24px;line-height:44px;color:#fff;background:rgba(255,255,255,.14);cursor:pointer}
+.lbx button:hover,.lbx button:focus-visible{background:rgba(255,255,255,.28);outline:none}
+.lbx .x{top:12px;right:max(12px,env(safe-area-inset-right,0px))}
+.lbx .p{left:max(10px,env(safe-area-inset-left,0px));top:50%;transform:translateY(-50%)}
+.lbx .n{right:max(10px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%)}
+.lbx .strip{display:flex;gap:6px;overflow-x:auto;max-width:min(92vw,960px);padding:4px 0;scrollbar-width:thin}
+.lbx .strip img{width:44px;height:54px;max-height:none;object-fit:cover;opacity:.5;cursor:pointer;flex:none;border-radius:2px}
+.lbx .strip img.cur{opacity:1;outline:2px solid #ece8e2}
+@media (max-width:600px){.lbx .p,.lbx .n{top:auto;bottom:max(70px,env(safe-area-inset-bottom,0px));transform:none}}
+</style>
+<div class="lbx" role="dialog" aria-modal="true" aria-label="사진 크게 보기">
+  <button class="x" type="button" aria-label="닫기">×</button>
+  <button class="p" type="button" aria-label="이전 사진">‹</button>
+  <figure><img alt=""><figcaption></figcaption><div class="cnt"></div></figure>
+  <div class="strip" aria-hidden="true"></div>
+  <button class="n" type="button" aria-label="다음 사진">›</button>
+</div>
+<script>
+(function(){
+  var box=document.querySelector('.lbx'); if(!box) return;
+  var big=box.querySelector('figure img'), cap=box.querySelector('figcaption'), cnt=box.querySelector('.cnt'), strip=box.querySelector('.strip');
+  var list=[], seen={}, cur=0, last=null;
+  function label(img){
+    if(img.alt) return img.alt;
+    var it=img.closest('.item'); if(it&&it.querySelector('.nm')) return it.querySelector('.nm').textContent;
+    var c=img.closest('.card'); if(c&&c.querySelector('.nm')) return c.querySelector('.nm').textContent;
+    return '';
+  }
+  [].slice.call(document.querySelectorAll('img')).forEach(function(img){
+    if(img.closest('.lbx')||img.closest('.menu')) return;
+    var s=img.getAttribute('src'); if(!s) return;
+    if(!(s in seen)){ seen[s]=list.length; list.push({src:s,alt:label(img)}); }
+    img.classList.add('zoomable'); img.setAttribute('tabindex','0'); img.setAttribute('role','button');
+    if(!img.getAttribute('aria-label')) img.setAttribute('aria-label',(label(img)||'사진')+' 크게 보기');
+    img.addEventListener('click',function(e){e.preventDefault();open(seen[s],img)});
+    img.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open(seen[s],img)}});
+  });
+  list.forEach(function(it,i){var t=document.createElement('img');t.src=it.src;t.alt='';t.addEventListener('click',function(){cur=i;show()});strip.appendChild(t)});
+  function show(){
+    var it=list[cur]; big.src=it.src; big.alt=it.alt; cap.textContent=it.alt; cnt.textContent=(cur+1)+' / '+list.length;
+    [].forEach.call(strip.children,function(t,i){t.classList.toggle('cur',i===cur); if(i===cur) t.scrollIntoView({block:'nearest',inline:'center'})});
+  }
+  function open(i,from){cur=i; last=from; show(); box.classList.add('on'); document.body.style.overflow='hidden'; box.querySelector('.x').focus()}
+  function close(){box.classList.remove('on'); document.body.style.overflow=''; if(last) last.focus()}
+  function step(d){cur=(cur+d+list.length)%list.length; show()}
+  box.querySelector('.x').addEventListener('click',close);
+  box.querySelector('.p').addEventListener('click',function(){step(-1)});
+  box.querySelector('.n').addEventListener('click',function(){step(1)});
+  box.addEventListener('click',function(e){if(e.target===box) close()});
+  document.addEventListener('keydown',function(e){if(!box.classList.contains('on')) return; if(e.key==='Escape') close(); else if(e.key==='ArrowLeft') step(-1); else if(e.key==='ArrowRight') step(1)});
+  var sx=null; box.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
+  box.addEventListener('touchend',function(e){if(sx===null) return; var dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>50) step(dx<0?1:-1); sx=null});
+})();
+</script>
+
+</body>
+</html>
