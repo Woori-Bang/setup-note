@@ -192,5 +192,73 @@ section.block h3{margin:0 0 12px;font-size:20px;font-weight:800}
 
 <div class="foot">가격은 2026.11.10 29CM 기준이에요(쿠폰은 계정마다 다를 수 있어요). 재고는 상품 페이지에서 다시 확인해 주세요.</div>
 </div>
+
+<style id="thumb-size">.feature{grid-template-columns:minmax(0,340px) minmax(0,1fr)!important}.gallery{max-width:340px}@media (max-width:760px){.feature{grid-template-columns:1fr!important}}</style>
+<!-- 사진 크게 보기 (룩북 뷰어) -->
+<style id="lbx-style">
+.zoomable{cursor:zoom-in;transition:opacity .15s}
+.zoomable:hover{opacity:.88}
+.lbx{position:fixed;inset:0;z-index:100;background:rgba(18,16,14,.94);display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  padding:56px max(16px,env(safe-area-inset-right,0px)) max(20px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lbx.on{display:flex}
+.lbx figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:10px;max-width:100%}
+.lbx img{display:block;max-width:min(92vw,960px);max-height:78vh;object-fit:contain;border-radius:4px;background:#f4f3f1}
+.lbx figcaption{color:#ece8e2;font-size:14px;line-height:1.5;text-align:center;max-width:60ch}
+.lbx .cnt{color:#a39d94;font-size:12px;font-variant-numeric:tabular-nums}
+.lbx button{position:absolute;border:0;border-radius:999px;width:44px;height:44px;font-size:24px;line-height:44px;color:#fff;background:rgba(255,255,255,.14);cursor:pointer}
+.lbx button:hover,.lbx button:focus-visible{background:rgba(255,255,255,.28);outline:none}
+.lbx .x{top:12px;right:max(12px,env(safe-area-inset-right,0px))}
+.lbx .p{left:max(10px,env(safe-area-inset-left,0px));top:50%;transform:translateY(-50%)}
+.lbx .n{right:max(10px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%)}
+.lbx .strip{display:flex;gap:6px;overflow-x:auto;max-width:min(92vw,960px);padding:4px 0;scrollbar-width:thin}
+.lbx .strip img{width:44px;height:54px;max-height:none;object-fit:cover;opacity:.5;cursor:pointer;flex:none;border-radius:2px}
+.lbx .strip img.cur{opacity:1;outline:2px solid #ece8e2}
+@media (max-width:600px){.lbx .p,.lbx .n{top:auto;bottom:max(70px,env(safe-area-inset-bottom,0px));transform:none}}
+</style>
+<div class="lbx" role="dialog" aria-modal="true" aria-label="사진 크게 보기">
+  <button class="x" type="button" aria-label="닫기">×</button>
+  <button class="p" type="button" aria-label="이전 사진">‹</button>
+  <figure><img alt=""><figcaption></figcaption><div class="cnt"></div></figure>
+  <div class="strip" aria-hidden="true"></div>
+  <button class="n" type="button" aria-label="다음 사진">›</button>
+</div>
+<script>
+(function(){
+  var box=document.querySelector('.lbx'); if(!box) return;
+  var big=box.querySelector('figure img'), cap=box.querySelector('figcaption'), cnt=box.querySelector('.cnt'), strip=box.querySelector('.strip');
+  var list=[], seen={}, cur=0, last=null;
+  function label(img){
+    if(img.alt) return img.alt;
+    var it=img.closest('.item'); if(it&&it.querySelector('.nm')) return it.querySelector('.nm').textContent;
+    var c=img.closest('.card'); if(c&&c.querySelector('.nm')) return c.querySelector('.nm').textContent;
+    return '';
+  }
+  [].slice.call(document.querySelectorAll('img')).forEach(function(img){
+    if(img.closest('.lbx')||img.closest('.menu')) return;
+    var s=img.getAttribute('src'); if(!s) return;
+    if(!(s in seen)){ seen[s]=list.length; list.push({src:s,alt:label(img)}); }
+    img.classList.add('zoomable'); img.setAttribute('tabindex','0'); img.setAttribute('role','button');
+    if(!img.getAttribute('aria-label')) img.setAttribute('aria-label',(label(img)||'사진')+' 크게 보기');
+    img.addEventListener('click',function(e){e.preventDefault();open(seen[s],img)});
+    img.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open(seen[s],img)}});
+  });
+  list.forEach(function(it,i){var t=document.createElement('img');t.src=it.src;t.alt='';t.addEventListener('click',function(){cur=i;show()});strip.appendChild(t)});
+  function show(){
+    var it=list[cur]; big.src=it.src; big.alt=it.alt; cap.textContent=it.alt; cnt.textContent=(cur+1)+' / '+list.length;
+    [].forEach.call(strip.children,function(t,i){t.classList.toggle('cur',i===cur); if(i===cur) t.scrollIntoView({block:'nearest',inline:'center'})});
+  }
+  function open(i,from){cur=i; last=from; show(); box.classList.add('on'); document.body.style.overflow='hidden'; box.querySelector('.x').focus()}
+  function close(){box.classList.remove('on'); document.body.style.overflow=''; if(last) last.focus()}
+  function step(d){cur=(cur+d+list.length)%list.length; show()}
+  box.querySelector('.x').addEventListener('click',close);
+  box.querySelector('.p').addEventListener('click',function(){step(-1)});
+  box.querySelector('.n').addEventListener('click',function(){step(1)});
+  box.addEventListener('click',function(e){if(e.target===box) close()});
+  document.addEventListener('keydown',function(e){if(!box.classList.contains('on')) return; if(e.key==='Escape') close(); else if(e.key==='ArrowLeft') step(-1); else if(e.key==='ArrowRight') step(1)});
+  var sx=null; box.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
+  box.addEventListener('touchend',function(e){if(sx===null) return; var dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>50) step(dx<0?1:-1); sx=null});
+})();
+</script>
+
 </body>
 </html>
