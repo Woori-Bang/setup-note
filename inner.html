@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>셋업 이너 룩북</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --bg:#eeece8; --paper:#f8f7f4; --fg:#22201d; --muted:#6a655e; --line:#d8d3cb;
+  --ink:#3b3226; --ink-fg:#f6f3ee;
+  --sw-navy:#1f2436; --sw-charcoal:#5c5d5f;
+  --f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#171614; --paper:#201e1b; --fg:#ece8e2; --muted:#a39d94; --line:#36322d;
+  --ink:#e4dccf; --ink-fg:#1b1916; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#171614; --paper:#201e1b; --fg:#ece8e2; --muted:#a39d94; --line:#36322d;
+  --ink:#e4dccf; --ink-fg:#1b1916; color-scheme:dark }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f);font-size:15px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:64px}
+.wrap{max-width:1040px;margin:0 auto}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+/* 공통 메뉴 */
+.menu{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line);
+  margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:10px max(16px,env(safe-area-inset-left,0px))}
+.menu .in{max-width:1040px;margin:0 auto;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none}
+.menu a{flex:none;text-decoration:none;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;color:var(--muted);white-space:nowrap}
+.menu a:hover{color:var(--fg);background:var(--paper)}
+.menu a[aria-current="page"]{color:var(--ink-fg);background:var(--ink)}
+.menu .lb{margin-left:auto;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);color:var(--fg)}
+.menu .lb[aria-current="page"]{border-color:var(--ink)}
+.menu .lb svg{width:16px;height:16px}
+header{padding-block:20px 24px;display:grid;gap:12px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted)}
+h1{font-weight:800;font-size:clamp(28px,5vw,42px);line-height:1.2;margin:0;text-wrap:balance}
+.lede{margin:0;color:var(--muted);max-width:62ch}
+
+.combos{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-block:24px;border-bottom:1px solid var(--line)}
+@media (max-width:640px){.combos{grid-template-columns:1fr}}
+.combo{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:16px;display:grid;gap:8px}
+.combo h2{margin:0;font-size:17px;font-weight:700;display:flex;align-items:center;gap:10px}
+.dot{width:22px;height:22px;border-radius:50%;flex:none;border:1px solid var(--line)}
+.combo p{margin:0;font-size:13px;color:var(--muted)}
+.combo ol{margin:0;padding-left:18px;font-size:14px}
+
+section.group{padding-block:28px 8px}
+section.group h2{font-size:20px;font-weight:800;margin:0 0 4px}
+section.group .gsub{font-size:13px;color:var(--muted);margin:0 0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;list-style:none;margin:0;padding:0}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
+.card img{display:block;width:100%;aspect-ratio:5/6;object-fit:cover;background:var(--line)}
+.body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.kind{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--muted)}
+.nm{font-weight:700;font-size:14px;line-height:1.4}
+.brand{font-size:12px;color:var(--muted)}
+.price{font-size:14px;font-variant-numeric:tabular-nums}
+.price s{font-size:12px;color:var(--muted);margin-left:6px}
+.pair{display:flex;gap:6px;flex-wrap:wrap}
+.pair span{display:inline-flex;align-items:center;gap:5px;font-size:11px;border:1px solid var(--line);border-radius:999px;padding:2px 8px 2px 4px}
+.pair i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.tip{font-size:13px;color:var(--muted);margin:0}
+.buy{margin-top:auto;align-self:flex-start;display:inline-flex;gap:6px;font-size:13px;font-weight:600;text-decoration:none;color:var(--ink-fg);background:var(--ink);padding:6px 12px;border-radius:2px}
+.buy:hover{opacity:.85}
+.foot{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<nav class="menu" aria-label="스타일 메뉴"><div class="in">
+  <a href="index.html">사계절 셋업 구매 노트</a>
+  <a href="casual.html">사계절 캐주얼</a>
+  <a href="winter.html">겨울 캐주얼</a>
+  <a class="lb" href="inner.html" aria-current="page" title="이너 룩북"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7.5" height="9" rx="1"/><rect x="13.5" y="3" width="7.5" height="5.5" rx="1"/><rect x="13.5" y="11.5" width="7.5" height="9.5" rx="1"/><rect x="3" y="15" width="7.5" height="6" rx="1"/></svg>이너 룩북</a>
+</div></nav>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">이너 룩북 · 무신사 · 2026.11.10 판매가</div>
+    <h1>셋업 안에 받쳐 입을 이너 10가지</h1>
+    <p class="lede">네이비 셋업과 차콜 셋업 안에 레이어드하기 좋은 이너예요. 봄웜톤에 잘 받는 아이보리·크림·버터·오트밀·브라운 계열 위주로 골랐어요. 모두 후기가 많은 상품이고, 버튼을 누르면 무신사 상품 페이지가 열려요.</p>
+  </header>
+
+  <div class="combos">
+    <div class="combo">
+      <h2><span class="dot" style="background:var(--sw-navy)"></span>네이비 셋업에는</h2>
+      <p>밝고 선명한 이너가 대비를 살려줘요.</p>
+      <ol><li>아이보리 셔츠 — 가장 단정한 출근룩</li><li>스카이블루 셔츠 — 같은 계열 톤온톤</li><li>버터 크림 브이넥 — 봄웜 포인트</li><li>스트라이프 카라 니트 — 캐주얼하게</li></ol>
+    </div>
+    <div class="combo">
+      <h2><span class="dot" style="background:var(--sw-charcoal)"></span>차콜 셋업에는</h2>
+      <p>따뜻한 뉴트럴로 회색의 차가움을 눌러줘요.</p>
+      <ol><li>크림 터틀넥 — 가을·겨울 기본</li><li>오트밀 라운드 니트 — 부드러운 데일리</li><li>브라운 리브 니트 — 웜톤 톤다운</li><li>아이보리 타이 블라우스 — 격식 있게</li></ol>
+    </div>
+  </div>
+
+  <section class="group">
+    <h2>셔츠 · 블라우스</h2>
+    <p class="gsub">칼라를 재킷 밖으로 꺼내면 단정하고, 단추를 하나 풀면 편안해 보여요.</p>
+    <ul class="grid">
+      <li class="card"><img src="img/inner-2996536.jpg" alt="버터 아이보리 셔츠 상품 사진"><div class="body">
+        <div class="kind">셔츠</div><div class="nm">데일리 바이오 셔츠 (아이보리·크림)</div><div class="brand">수아레 · 10컬러</div>
+        <div class="price">39,900원<s>50,000원</s></div>
+        <div class="pair"><span><i style="background:var(--sw-navy)"></i>네이비</span><span><i style="background:var(--sw-charcoal)"></i>차콜</span></div>
+        <p class="tip">새하얀 화이트보다 크림 쪽이 봄웜 피부를 환하게 살려줘요.</p>
+        <a class="buy" href="https://www.musinsa.com/products/2996536" target="_blank" rel="noopener">무신사에서 보기 ↗</a></div></li>
+      <li class="card"><img src="img/inner-1336398.jpg" alt="스카이블루 옥스포드 셔츠 상품 사진"><div class="body">
+        <div class="kind">셔츠</div><div class="nm">솔리드 옥스포드 오버셔츠 (스카이블루)</div><div class="brand">테이크이지 · 후기 2.2만</div>
+        <div class="price">33,500원<s>67,000원</s></div>
+        <div class="pair"><span><i style="background:var(--sw-navy)"></i>네이비</span></div>
+        <p class="tip">남녀공용 오버핏이라 XS·S로 고르세요. 네이비와 톤온톤으로 깔끔해요.</p>
+        <a class="buy" href="https://www.musinsa.com/products/1336398" target="_blank" rel="noopener">무신사에서 보기 ↗</a></div></li>
+      <li class="card"><img src="img/inner-2712339.jpg" alt="아이보리 타이 블라우스 상품 사진"><div class="body">
+        <div class="kind">블라우스</div><div class="nm">타이 블라우스 (아이보리)</div><div class="brand">제로스트릿 · 10컬러</div>
+        <div class="price">45,000원<s>119,000원</s></div>
+        <div class="pair"><span><i style="background:var(--sw-navy)"></i>네이비</span><span><i style="background:var(--sw-charcoal)"></i>차콜</span></div>
+        <p class="tip">타이를 길게 늘어뜨리면 셋업이 하객룩·면접룩으로 바뀌어요.</p>
+        <a class="buy" href="https://www.musinsa.com/products/2712339" target="_blank" rel="noopener">무신사에서 보기 ↗</a></div></li>
+    </ul>
+  </section>
+
+  <section class="group">
+    <h2>니트</h2>
+    <p class="gsub">재킷 안에 입을 땐 얇은 게이지·슬림한 핏이 어깨가 덜 끼어요.</p>
+    <ul class="grid">
+      <li class="card"><img src="img/inner-3476085.jpg" alt="크림 터틀넥 골지 니트 착용 사진"><div class="body">
+        <div class="kind">터틀넥</div><div class="nm">터틀넥 슬릿 골지 니트 (크림)</div><div class="brand">몽돌 · 5컬러</div>
+        <div class="price">43,200원<s>48,000원</s></div>
+        <div class="pair"><span><i style="background:var(--sw-navy)"></i>네이비</span><span><i style="background:var(--sw-charcoal)"></i>차콜</span></div>
+        <p class="tip">몸에 붙는 골지라 재킷 안에서 부해 보이지 않아요. 겨울 셋업의 기본.</p>
+        <a class="buy" href="https://www.musinsa.com/products/3476085" target="_blank" rel="noopener">무신사에서 보기 ↗</a></div></li>
+      <li class="card"><img src="img/inner-2723767.jpg" alt="데일리 라운드 니트 상품 사진과 색상 칩"><div class="body">
+        <div class="kind">라운드 니트</div><div class="nm">데일리 라운드 니트 (오트밀 추천)</div><div class="brand">수아레 · 12컬러 · 후기 4.2만</div>
+        <div class="price">33,000원<s>49,000원</s></div>
+        <div class="pair"><span><i style="background:var(--sw-charcoal)"></i>차콜</span><span><i style="background:var(--sw-navy)"></i>네이비</span></div>
+        <p class="tip">사진은 브라운이에요. 오트밀·베이지로 고르면 차콜과 가장 잘 맞아요.</p>
+        <a class="buy" href="https://www.musinsa.com/products/2723767" target="_blank" rel="noopener">무신사에서 보기 ↗</a></div></li>
+      <li class="card"><img src="img/inner-6341388.jpg" alt="버터 크림 브이넥 니트 착용 사진"><div class="body">
+        <div class="kind">브이넥</div><div class="nm">우먼즈 에센셜 브이 넥 니트 [버터 크림]</div><div class="brand">무신사 스탠다드 우먼</div>
+        <div class="price">39,900원</div>
+        <div class="pair"><span><i style="background:var(--sw-navy)"></i>네이비</span><span><i style="background:var(--sw-charcoal)"></i>차콜</span></div>
+        <p class="tip">봄웜 포인트 컬러. 안에 흰 티를 살짝 보이게 겹쳐도 예뻐요.</p>
+        <a class="buy" href="https://www.musinsa.com/products/6341388" target="_blank" rel="noopener">무신사에서 보기 ↗</a></div></li>
+      <li class="card"><img src="img/inner-1710495.jpg" alt="브라운 크루넥 리브 니트 상품 사진"><div class="body">
+        <div class="kind">라운드 니트</div><div class="nm">크루넥 리브 니트 스웨터 (브라운)</div><div class="brand">블론드나인 · 후기 1.2만</div>
+        <div class="price">29,800원<s>65,600원</s></div>
+        <div class="pair"><span><i style="background:var(--sw-charcoal)"></i>차콜</span></div>
+        <p class="tip">차콜 + 브라운은 웜톤에게 가장 세련된 톤다운 조합이에요.</p>
+        <a class="buy" href="https://www.musinsa.com/products/1710495" target="_blank" rel="noopener">무신사에서 보기 ↗</a></div></li>
+      <li class="card"><img src="img/inner-2733943.jpg" alt="스트라이프 카라 니트 착용 사진"><div class="body">
+        <div class="kind">카라 니트</div><div class="nm">COLLAR STRIPE KNIT (블랙+아이보리)</div><div class="brand">로라로라</div>
+        <div class="price">55,300원<s>79,000원</s></div>
+        <div class="pair"><span><i style="background:var(--sw-navy)"></i>네이비</span></div>
+        <p class="tip">카라를 재킷 라펠 위로 꺼내면 주말용 캐주얼 셋업이 돼요.</p>
+        <a class="buy" href="https://www.musinsa.com/products/2733943" target="_blank" rel="noopener">무신사에서 보기 ↗</a></div></li>
+    </ul>
+  </section>
+
+  <section class="group">
+    <h2>가벼운 이너</h2>
+    <p class="gsub">봄·초가을이나 실내가 더울 때. 재킷을 벗어도 단정해요.</p>
+    <ul class="grid">
+      <li class="card"><img src="img/inner-1417691.jpg" alt="화이트 크루넥 티셔츠 착용 사진"><div class="body">
+        <div class="kind">티셔츠</div><div class="nm">우먼즈 베이식 크루 넥 티셔츠 [화이트]</div><div class="brand">무신사 스탠다드 우먼 · 후기 3만</div>
+        <div class="price">15,110원<s>15,900원</s></div>
+        <div class="pair"><span><i style="background:var(--sw-navy)"></i>네이비</span><span><i style="background:var(--sw-charcoal)"></i>차콜</span></div>
+        <p class="tip">반팔이라 사계절 셋업 안에 가장 가볍게. 아이보리 색도 있어요.</p>
+        <a class="buy" href="https://www.musinsa.com/products/1417691" target="_blank" rel="noopener">무신사에서 보기 ↗</a></div></li>
+      <li class="card"><img src="img/inner-2027741.jpg" alt="베이지 스퀘어넥 니트 슬리브리스 착용 사진"><div class="body">
+        <div class="kind">슬리브리스</div><div class="nm">스퀘어넥 니트 슬리브리스 (베이지)</div><div class="brand">닉앤니콜</div>
+        <div class="price">23,400원<s>39,000원</s></div>
+        <div class="pair"><span><i style="background:var(--sw-charcoal)"></i>차콜</span><span><i style="background:var(--sw-navy)"></i>네이비</span></div>
+        <p class="tip">스퀘어넥이 재킷 V존을 깔끔하게 채워요. 여름 셋업 이너로도.</p>
+        <a class="buy" href="https://www.musinsa.com/products/2027741" target="_blank" rel="noopener">무신사에서 보기 ↗</a></div></li>
+    </ul>
+  </section>
+
+  <div class="foot">가격은 2026.11.10 무신사 판매가예요(쿠폰 적용 전). 색상이 여러 개인 상품은 상품 페이지에서 추천 색을 골라 주세요.</div>
+</div>
+</body>
+</html>
