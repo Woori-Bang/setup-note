@@ -36,21 +36,24 @@ header.page p{margin:0;color:var(--muted);font-size:14px}
 .stat .v{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
 .stat .s{font-size:11px;color:var(--muted)}
 section.grp{padding-top:26px}
-.ghead{display:flex;align-items:center;gap:6px 8px;flex-wrap:wrap;margin-bottom:8px;max-width:560px}
+.ghead{display:flex;align-items:center;gap:6px 8px;flex-wrap:wrap;margin-bottom:8px}
+section.grp.pair{max-width:680px}
+.pair .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 .ghead h2{font-size:17px;font-weight:800;margin:0;line-height:1.3}
 .ghead .dot{width:14px;height:14px;border-radius:50%;flex:none;border:1px solid var(--line)}
 .ghead .note{font-size:12px;color:var(--muted)}
 .ghead .tag{font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;border:1px solid currentColor}
 .ghead .tag.ok{color:var(--ok)}
 .ghead .tag.warn{color:var(--warn)}
-.ghead .sum{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;padding:1px 8px;border-radius:4px;background:var(--paper);border:1px solid var(--line)}
-.gdesc{margin:-2px 0 12px;padding:0;list-style:none;display:grid;gap:1px;font-size:12.5px;line-height:1.5;color:var(--muted);max-width:560px}
+.ghead .sum{margin-left:auto;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;padding:1px 8px;border-radius:4px;background:var(--paper);border:1px solid var(--line)}
+.gdesc{margin:-2px 0 12px;padding:0;list-style:none;display:grid;gap:1px;font-size:12.5px;line-height:1.5;color:var(--muted);max-width:680px}
 .gdesc li::before{content:"· ";color:var(--line)}
 .gdesc li.fab{color:var(--fg)}
 .gdesc li.fab::before{content:""}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:24px 16px;list-style:none;margin:0;padding:0}
 @media (max-width:520px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 10px}}
-.card{display:block;text-decoration:none;color:inherit}
+.grid>li{display:flex}
+.card{display:flex;flex-direction:column;width:100%;text-decoration:none;color:inherit}
 .card .ph{position:relative;aspect-ratio:4/5;border-radius:6px;overflow:hidden;background:var(--line)}
 .card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
 .card:hover img{transform:scale(1.03)}
@@ -60,15 +63,22 @@ section.grp{padding-top:26px}
 .card .go{position:absolute;right:8px;bottom:8px;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:rgba(0,0,0,.55);color:#fff;opacity:0;transition:opacity .2s}
 .card:hover .go,.card:focus-visible .go{opacity:1}
 @media (hover:none){.card .go{opacity:1}}
-.card .tx{padding:10px 2px 0;display:grid;gap:2px}
+.card .tx{padding:10px 2px 0;display:flex;flex-direction:column;gap:2px;flex:1}
+.card .dts{margin-top:auto;padding-top:4px}
 .card .br{font-size:12px;color:var(--muted);font-weight:600}
 .card .nm{font-size:15px;font-weight:700;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .card .mt{font-size:13px;color:var(--muted)}
 .card .pr{font-size:16px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:2px}
-.card .dt{font-size:12px;line-height:1.45;color:var(--fg);background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:5px 8px;margin-top:4px;font-variant-numeric:tabular-nums}
+.card .dt{font-size:12px;line-height:1.45;color:var(--fg);background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:5px 8px;font-variant-numeric:tabular-nums}
+.card .dt.sp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:5px 2px;text-align:center}
+.card .dt.sp span{display:grid;line-height:1.3;font-weight:700}
+.card .dt.sp span+span{border-left:1px solid var(--line)}
+.card .dt.sp i{font-style:normal;font-weight:400;font-size:10.5px;color:var(--muted)}
 .card .dt+.dt{margin-top:0;border-top:0;border-radius:0 0 4px 4px}
+.card .dt:has(+.dt){border-radius:4px 4px 0 0}
+.card .dt.tl{color:var(--muted)}
 .card .dt.memo{color:var(--muted)}
-@media (max-width:520px){.card .nm{font-size:14px}.card .pr{font-size:15px}.card .dt{font-size:11px;padding:4px 6px}}
+@media (max-width:520px){.card .nm{font-size:14px}.card .pr{font-size:15px}.card .dt{font-size:11px;padding:4px 6px}.card .dt.sp{padding:4px 0}.card .dt.sp i{font-size:10px}}
 .card .pr s{font-size:11px;font-weight:400;color:var(--muted);margin-left:5px}
 .card.refund .ph img{opacity:.45}
 .card.refund .pr{text-decoration:line-through;color:var(--muted)}
@@ -85,7 +95,7 @@ section.grp{padding-top:26px}
 </div></nav>
 <div class="wrap">
 <header class="page"><h1>사계절 캐주얼</h1><p>계절 상관없이 데일리로 돌려 입는 아이템 · 사진을 누르면 상세페이지로 이동해요.</p></header>
-<section class="grp"><div class="ghead"><h2>팬츠</h2></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/4167652" target="_blank" rel="noopener" aria-label="마조네 스트레이트 코튼 팬츠 상세페이지 열기"><div class="ph"><img src="img/pp-full.jpg" alt="" loading="lazy" style="object-position:center 60%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">마조네 · 29CM</span><span class="nm">스트레이트 코튼 팬츠</span><span class="mt">퍼플 · S</span><span class="pr">80,640원<s>112,000원</s></span><span class="dt">면 100% · 총장 103 · 밑위 28 · 인심 75 · 허리 35</span><span class="dt memo">톤다운 퍼플이라 무채색처럼 쓰기 좋아요 · 위에는 크림·버터·카멜</span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/2851092" target="_blank" rel="noopener" aria-label="몽돌 [Premium] 스트레이트 데님 진 상세페이지 열기"><div class="ph"><img src="img/dn-full.jpg" alt="" loading="lazy" style="object-position:center 60%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">몽돌 · 29CM</span><span class="nm">[Premium] 스트레이트 데님 진</span><span class="mt">딥블루 · S</span><span class="pr">45,690원<s>99,000원</s></span><span class="dt">면 100% · 총장 104 · 밑위 29 · 인심 75 · 허리 36.5</span><span class="dt memo">후기 245개 · 160cm대 S 잘 맞음 · 허리 단추 구멍이 작다는 후기</span></div></a></li></ul></section>
+<section class="grp pair"><div class="ghead"><h2>팬츠</h2></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/4167652" target="_blank" rel="noopener" aria-label="마조네 스트레이트 코튼 팬츠 상세페이지 열기"><div class="ph"><img src="img/pp-full.jpg" alt="" loading="lazy" style="object-position:center 60%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">마조네 · 29CM</span><span class="nm">스트레이트 코튼 팬츠</span><span class="mt">퍼플 · S</span><span class="pr">80,640원<s>112,000원</s></span><span class="dts"><span class="dt tl">면 100%</span><span class="dt sp" style="grid-template-columns:repeat(4,minmax(0,1fr))"><span><i>총장</i>103</span><span><i>밑위</i>28</span><span><i>인심</i>75</span><span><i>허리</i>35</span></span><span class="dt memo">톤다운 퍼플이라 무채색처럼 쓰기 좋아요 · 위에는 크림·버터·카멜</span></span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/2851092" target="_blank" rel="noopener" aria-label="몽돌 [Premium] 스트레이트 데님 진 상세페이지 열기"><div class="ph"><img src="img/dn-full.jpg" alt="" loading="lazy" style="object-position:center 60%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">몽돌 · 29CM</span><span class="nm">[Premium] 스트레이트 데님 진</span><span class="mt">딥블루 · S</span><span class="pr">45,690원<s>99,000원</s></span><span class="dts"><span class="dt tl">면 100%</span><span class="dt sp" style="grid-template-columns:repeat(4,minmax(0,1fr))"><span><i>총장</i>104</span><span><i>밑위</i>29</span><span><i>인심</i>75</span><span><i>허리</i>36.5</span></span><span class="dt memo">후기 245개 · 160cm대 S 잘 맞음 · 허리 단추 구멍이 작다는 후기</span></span></div></a></li></ul></section>
 <p class="foot">가격은 2026.11.10 29CM 판매가(쿠폰 전)예요.</p>
 </div>
 </body>
