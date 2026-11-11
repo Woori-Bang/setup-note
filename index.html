@@ -50,7 +50,7 @@ section.grp{padding-top:26px}
 .gdesc li.fab{color:var(--fg)}
 .gdesc li.fab::before{content:""}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:32px 20px;list-style:none;margin:0;padding:0}
-@media (max-width:520px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 10px}.gal{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}.gal .m{grid-column:1/-1!important;grid-row:auto!important}.gal .t{grid-column:span 1!important;grid-row:auto!important;aspect-ratio:4/5!important}.gal .t:nth-child(n+5){display:none}.gal.g1 .t,.gal.g2 .t:nth-child(3){grid-column:span 1!important}}
+@media (max-width:520px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 10px}}
 .grid>li{display:flex}
 .card{display:flex;flex-direction:column;width:100%;text-decoration:none;color:inherit}
 .card .ph{position:relative;aspect-ratio:4/5;border-radius:6px;overflow:hidden;background:var(--line)}
@@ -92,6 +92,7 @@ section.grp{padding-top:26px}
 .card.refund .ph img{opacity:.45}
 .card.refund .pr{text-decoration:line-through;color:var(--muted)}
 .foot{margin-top:30px;font-size:12px;color:var(--muted)}
+@media (max-width:520px){.gal{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}.gal .m{grid-column:1/-1!important;grid-row:auto!important}.gal .t{grid-column:span 1!important;grid-row:auto!important;aspect-ratio:4/5!important}.gal .t:nth-child(n+5){display:none}.gal.g1 .t,.gal.g2 .t:nth-child(3){grid-column:span 1!important}}
 </style>
 </head>
 <body>
