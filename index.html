@@ -4,103 +4,70 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>사계절 셋업 구매 노트</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap">
 <style>
-/* Layout: 룩마다 왼쪽 착장 사진, 오른쪽 원단 색 비교와 구매 링크. 하단 고정 바에서 선택 합계. */
-:root{
-  --bg:#eeece8; --paper:#f8f7f4; --fg:#22201d; --muted:#6a655e; --line:#d8d3cb;
-  --ink:#3b3226; --ink-fg:#f6f3ee; --check:#3b3226; --ok:#3f6b4a; --warn:#9a6a1f;
-  --sw-mocha:#6e6253; --sw-beige:#a69a8c; --sw-grey:#4a4b4d; --sw-navy:#1f2436; --sw-charcoal:#5c5d5f; --sw-greige:#d2c9bc;
-  --f-display:"Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
-  --f-body:"Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
-  --f-mono:"Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#171614; --paper:#201e1b; --fg:#ece8e2; --muted:#a39d94; --line:#36322d;
-  --ink:#e4dccf; --ink-fg:#1b1916; --check:#e4dccf; --ok:#8fc39c; --warn:#e0b66a; color-scheme:dark }}
-:root[data-theme="dark"]{
-  --bg:#171614; --paper:#201e1b; --fg:#ece8e2; --muted:#a39d94; --line:#36322d;
-  --ink:#e4dccf; --ink-fg:#1b1916; --check:#e4dccf; --ok:#8fc39c; --warn:#e0b66a; color-scheme:dark }
-
+:root{--bg:#eeece8;--paper:#f8f7f4;--fg:#22201d;--muted:#6a655e;--line:#d8d3cb;--ink:#3b3226;--ink-fg:#f6f3ee;--ok:#3f6b4a;--warn:#9a3d1f;
+  --f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#171614;--paper:#201e1b;--fg:#ece8e2;--muted:#a39d94;--line:#36322d;--ink:#e4dccf;--ink-fg:#1b1916;--ok:#8fc39c;--warn:#f0a07f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#171614;--paper:#201e1b;--fg:#ece8e2;--muted:#a39d94;--line:#36322d;--ink:#e4dccf;--ink-fg:#1b1916;--ok:#8fc39c;--warn:#f0a07f;color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.6;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 120px}
-.wrap{max-width:1040px;margin:0 auto}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:56px}
+.wrap{max-width:1080px;margin:0 auto}
 a{color:inherit}
-header{position:relative;padding-block:40px 28px;display:grid;gap:14px;border-bottom:1px solid var(--line)}
-/* 공통 메뉴 */
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
 .menu{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line);
   margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:10px max(16px,env(safe-area-inset-left,0px))}
-.menu .in{max-width:1040px;margin:0 auto;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none}
+.menu .in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none}
 .menu a{flex:none;text-decoration:none;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;color:var(--muted);white-space:nowrap}
 .menu a:hover{color:var(--fg);background:var(--paper)}
 .menu a[aria-current="page"]{color:var(--ink-fg);background:var(--ink)}
 .menu .lb{margin-left:auto;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);color:var(--fg)}
+.menu .lb[aria-current="page"]{border-color:var(--ink);background:var(--ink);color:var(--ink-fg)}
 .menu .lb svg{width:16px;height:16px}
-.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
-h1{font-family:var(--f-display);font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.2;margin:0;text-wrap:balance}
-.lede{margin:0;color:var(--muted);max-width:62ch}
-.label{display:flex;flex-wrap:wrap;gap:8px}
-.label span{font-family:var(--f-mono);font-size:12px;border:1px solid var(--line);padding:4px 10px;border-radius:2px;background:var(--paper)}
-
-.look{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:32px;padding-block:40px;border-bottom:1px solid var(--line)}
-@media (max-width:720px){.look{grid-template-columns:1fr;gap:20px}}
-.frame{position:relative;aspect-ratio:4/5;max-width:100%;overflow:hidden;border-radius:2px;background:var(--line)}
-.frame.split{display:grid;grid-template-rows:55fr 45fr;gap:2px}
-.frame img{display:block;width:100%;height:100%;min-height:0;object-fit:cover}
-.tag{position:absolute;left:10px;font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;background:var(--paper);color:var(--fg);padding:2px 8px;border-radius:2px;opacity:.92}
-.tag.t1{top:10px}.tag.t2{top:calc(55% + 10px)}
-.caption{font-size:12px;color:var(--muted);margin-top:8px}
-
-.side{display:flex;flex-direction:column;gap:18px;min-width:0}
-.look-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.swatch{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);flex:none}
-.look-head h2{font-family:var(--f-display);font-weight:800;font-size:26px;margin:0;line-height:1.2}
-.look-head .sub{font-size:13px;color:var(--muted)}
-.set-sum{margin-left:auto;font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:15px;text-align:right}
-.set-sum small{display:block;font-size:11px;color:var(--muted)}
-
-.match{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--muted)}
-.chips{display:flex;flex:none}
-.chip{width:44px;height:44px;border-radius:50%;border:2px solid var(--paper);background-repeat:no-repeat;background-size:700%;box-shadow:0 0 0 1px var(--line)}
-.chip+.chip{margin-left:-10px}
-.match b{font-weight:600}
-.match b.ok{color:var(--ok)}.match b.warn{color:var(--warn)}
-
-.items{display:grid;gap:10px;list-style:none;margin:0;padding:0}
-.item{display:grid;grid-template-columns:auto 64px minmax(0,1fr) auto;gap:14px;align-items:center;background:var(--paper);border:1px solid var(--line);padding:10px 14px 10px 12px;border-radius:2px}
-.item input{width:20px;height:20px;accent-color:var(--check);margin:0;cursor:pointer}
-.item img{width:64px;height:76px;object-fit:cover;border-radius:2px}
-.item .nm{font-weight:600;font-size:14px;line-height:1.4}
-.item .meta{font-size:12px;color:var(--muted);font-family:var(--f-mono)}
-.item .price{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:14px;text-align:right;white-space:nowrap}
-.item .price s{display:block;font-size:11px;color:var(--muted)}
-.buy{grid-column:3 / -1;justify-self:start;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;text-decoration:none;color:var(--ink-fg);background:var(--ink);padding:6px 12px;border-radius:2px}
-.buy:hover,.buy:focus-visible{opacity:.85}
-a:focus-visible,input:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-@media (max-width:440px){.item{grid-template-columns:auto 56px minmax(0,1fr)}.item img{width:56px;height:68px}.item .price{grid-column:3;text-align:left}}
-
-.tips{font-size:13px;color:var(--muted);margin:0;padding-left:18px}
-.tips li{margin-block:2px}
-
-.notes{padding-block:32px;display:grid;gap:8px;font-size:13px;color:var(--muted)}
-.notes h3{font-size:13px;color:var(--fg);margin:0;font-weight:600}
-.notes ul{margin:0;padding-left:18px}
-
-.bar{position:fixed;left:0;right:0;bottom:0;background:var(--ink);color:var(--ink-fg);
-  padding-block:12px calc(12px + env(safe-area-inset-bottom,0px));
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));z-index:5}
-.bar .in{max-width:1040px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.bar .count{font-size:13px;opacity:.8}
-.bar .total{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:20px;font-weight:500}
-.bar .go{margin-left:auto;font-size:13px;font-weight:600;color:var(--ink);background:var(--ink-fg);text-decoration:none;padding:8px 14px;border-radius:2px}
-.bar button{font:inherit;font-size:12px;background:transparent;color:var(--ink-fg);border:1px solid currentColor;padding:5px 10px;border-radius:2px;cursor:pointer;opacity:.85}
+header.page{padding-block:26px 6px}
+header.page h1{font-weight:800;font-size:clamp(26px,4.5vw,36px);line-height:1.2;margin:0 0 6px}
+header.page p{margin:0;color:var(--muted);font-size:14px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:18px}
+@media (max-width:640px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.stat .k{font-size:12px;color:var(--muted)}
+.stat .v{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+.stat .s{font-size:11px;color:var(--muted)}
+section.grp{padding-top:26px}
+.ghead{display:flex;align-items:center;gap:6px 10px;flex-wrap:wrap;margin-bottom:10px}
+.ghead h2{font-size:17px;font-weight:800;margin:0;line-height:1.3}
+.ghead .dot{width:14px;height:14px;border-radius:50%;flex:none;border:1px solid var(--line)}
+.ghead .note{font-size:12px;color:var(--muted)}
+.ghead .tag{font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;border:1px solid currentColor}
+.ghead .tag.ok{color:var(--ok)}
+.ghead .tag.warn{color:var(--warn)}
+.ghead .sum{margin-left:auto;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px 12px;list-style:none;margin:0;padding:0}
+@media (max-width:420px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{display:block;text-decoration:none;color:inherit}
+.card .ph{position:relative;aspect-ratio:4/5;border-radius:6px;overflow:hidden;background:var(--line)}
+.card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
+.card:hover img{transform:scale(1.03)}
+.card .bd{position:absolute;left:8px;top:8px;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--paper);color:var(--fg)}
+.card .bd.ok{color:var(--ok)}
+.card .bd.warn{color:var(--warn)}
+.card .go{position:absolute;right:8px;bottom:8px;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:rgba(0,0,0,.55);color:#fff;opacity:0;transition:opacity .2s}
+.card:hover .go,.card:focus-visible .go{opacity:1}
+@media (hover:none){.card .go{opacity:1}}
+.card .tx{padding:8px 2px 0;display:grid;gap:1px}
+.card .br{font-size:11px;color:var(--muted);font-weight:600}
+.card .nm{font-size:13px;font-weight:600;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .mt{font-size:12px;color:var(--muted)}
+.card .pr{font-size:14px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:2px}
+.card .pr s{font-size:11px;font-weight:400;color:var(--muted);margin-left:5px}
+.card.refund .ph img{opacity:.45}
+.card.refund .pr{text-decoration:line-through;color:var(--muted)}
+.foot{margin-top:30px;font-size:12px;color:var(--muted)}
 </style>
 </head>
 <body>
-
 <nav class="menu" aria-label="스타일 메뉴"><div class="in">
   <a href="index.html" aria-current="page">사계절 셋업 구매 노트</a>
   <a href="casual.html">사계절 캐주얼</a>
@@ -109,738 +76,26 @@ a:focus-visible,input:focus-visible,button:focus-visible{outline:2px solid var(-
   <a class="lb" href="inner.html" title="이너 룩북"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7.5" height="9" rx="1"/><rect x="13.5" y="3" width="7.5" height="5.5" rx="1"/><rect x="13.5" y="11.5" width="7.5" height="9.5" rx="1"/><rect x="3" y="15" width="7.5" height="6" rx="1"/></svg>이너 룩북</a>
 </div></nav>
 <div class="wrap">
-<header>
-  <div class="eyebrow">무신사 장바구니 · 셋업 6벌 · 2026.11.03 판매가</div>
-  <h1>장바구니 셋업 여섯 벌, 고르고 사기</h1>
-  <p class="lede">지금 장바구니에 담긴 봄·가을용 셋업 여섯 벌이에요. 살 옷에 체크하면 아래에 합계가 나와요. 상품 옆 버튼을 누르면 무신사 상품 페이지가 열려요.</p>
-  <div class="label"><span>상의 S · 하의 25 (시야쥬 바지 S)</span><span>여름용 쿨 원단 제외</span><span>세트마다 원단 혼용률 확인함</span></div>
-</header>
-
-<section class="look">
-  <div>
-    <div class="frame">
-      <img src="img/majo-set.jpg" style="object-position:center 40%" alt="마조네 차콜 테일러드 싱글 재킷과 부츠컷 팬츠를 함께 입은 사진">
-      <span class="tag t1">29CM · 새 후보</span>
-    </div>
-    <div class="caption">마조네 상품 사진 · 재킷과 팬츠를 함께 입은 모습</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:var(--sw-charcoal)"></span>
-      <div><h2>차콜 (마조네)</h2><div class="sub">29CM · 슬림 핏 세미 크롭 재킷 + 부츠컷 · 다리 길이 넉넉한 셋업</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/majo-set.jpg);background-position:50% 30%"></span><span class="chip" style="background-image:url(img/majo-pants.jpg);background-position:50% 65%"></span></div>
-      <div><b class="ok">진짜 세트</b> · 원단 같음(폴리 92/레이온 5/스판 3) · 둘 다 2026년 9월 제조</div>
-    </div>
-    <ul class="items">
-      <li class="item">
-        <input type="checkbox" id="c29-4116126" data-price="159120" checked aria-label="마조네 차콜 테일러드 싱글 재킷 선택">
-        <img src="img/majo-set.jpg" style="object-position:center 25%" alt="">
-        <div><div class="nm">TAILORED SINGLE JACKET_CHARCOAL</div><div class="meta">S · 어깨 40 · 가슴 46 · 총장 60</div></div>
-        <div class="price"><s>249,000원</s>159,120원</div>
-        <a class="buy" href="https://www.29cm.co.kr/products/4116126" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-      </li>
-      <li class="item">
-        <input type="checkbox" id="c29-4115407" data-price="110620" checked aria-label="마조네 차콜 버튼 슬릿 부츠컷 팬츠 선택">
-        <img src="img/majo-pants.jpg" style="object-position:center 70%" alt="">
-        <div><div class="nm">BUTTON SLIT BOOTCUT PANTS_CHARCOAL</div><div class="meta">S · 총장 103 · 밑위 24.5 · 인심 78.5</div></div>
-        <div class="price">110,620원</div>
-        <a class="buy" href="https://www.29cm.co.kr/products/4115407" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-      </li>
-    </ul>
-    <ul class="tips"><li>시야쥬 차콜보다 상의 어깨 6cm·가슴 9.5cm 작고, 바지 다리 길이는 6.5cm 길어요</li><li>재킷이 세미 크롭(60cm)이라 엉덩이를 덮지 않아요. 하이웨스트 부츠컷과 비율이 좋아요</li><li>이너: 크림 터틀넥, 브라운 니트 — <a href="inner.html">이너 룩북</a> 참고</li><li>29CM 판매 · 10만원 이상 무료배송 · 가격은 2026.11.10 기준</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame">
-      <img src="img/line-set.webp" style="object-position:center 20%" alt="라인어디션 무스모카 벨티드 자켓과 슬랙스를 함께 입은 사진">
-      <span class="tag t1">29CM · 새 후보</span>
-    </div>
-    <div class="caption">라인어디션 상품 사진 · 자켓과 슬랙스를 함께 입은 모습</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:#4a3b32"></span>
-      <div><h2>무스모카 (라인어디션)</h2><div class="sub">29CM · 허리 벨트로 라인을 잡는 슬림 재킷 + 스트레이트 슬랙스</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/line-set.webp);background-position:50% 55%"></span><span class="chip" style="background-image:url(img/line-pants.webp);background-position:50% 50%"></span></div>
-      <div><b class="ok">진짜 세트</b> · 브랜드가 세트로 제작(품번 PJ4000) · 원단 같음(폴리 78/레이온 18/PU 4) · 2025년 7월 제조</div>
-    </div>
-    <ul class="items">
-      <li class="item">
-        <input type="checkbox" id="c29-3452195" data-price="164000" checked aria-label="라인어디션 무스모카 벨티드 자켓 선택">
-        <img src="img/line-set.webp" style="object-position:center 30%" alt="">
-        <div><div class="nm">무스모카 벨티드 자켓 NWJKPJ4000</div><div class="meta">55(S) · 어깨 39 · 가슴 47 · 총장 67</div></div>
-        <div class="price">164,000원</div>
-        <a class="buy" href="https://www.29cm.co.kr/products/3452195" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-      </li>
-      <li class="item">
-        <input type="checkbox" id="c29-3450179" data-price="99000" checked aria-label="라인어디션 무스모카 스트레이트핏 슬랙스 선택">
-        <img src="img/line-pants.webp" style="object-position:center 50%" alt="">
-        <div><div class="nm">무스모카 스트레이트핏 슬랙스 NWSLPJ4000</div><div class="meta">55(S) · 총장 103 · 밑위 28 · 인심 75 · 허리 35.5</div></div>
-        <div class="price">99,000원</div>
-        <a class="buy" href="https://www.29cm.co.kr/products/3450179" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-      </li>
-    </ul>
-    <ul class="tips"><li>상의 어깨 39cm로 시야쥬(46cm)보다 7cm 작아요. 벨트로 허리선이 잡혀요</li><li>브랜드 착용 시기 '겨울' 표기라 원단에 두께감이 있을 수 있어요</li><li>바지 인심 75cm — 굽 있는 구두나 로퍼와 함께</li><li>이너: 아이보리 블라우스, 크림 터틀넥 — <a href="inner.html">이너 룩북</a> 참고</li><li>29CM 판매가(쿠폰 전) · 2026.11.10 기준</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame">
-      <img src="img/ken-set.webp" style="object-position:center 20%" alt="케네스레이디 모카 테일러드 자켓과 와이드 슬랙스를 함께 입은 사진">
-      <span class="tag t1">29CM · 새 후보</span>
-    </div>
-    <div class="caption">케네스레이디 상품 사진 · 자켓과 슬랙스를 함께 입은 모습</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:#6b4e38"></span>
-      <div><h2>모카 (케네스레이디)</h2><div class="sub">29CM · 투버튼 테일러드 재킷 + 와이드 슬랙스 · 봄·가을용</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/ken-set.webp);background-position:50% 60%"></span><span class="chip" style="background-image:url(img/ken-pants.webp);background-position:50% 50%"></span></div>
-      <div><b class="ok">진짜 세트</b> · 브랜드가 세트로 제작(품번 PI4100) · 원단 같음(폴리 75/레이온 19/PU 4/실크 2) · 2025년 5월 제조</div>
-    </div>
-    <ul class="items">
-      <li class="item">
-        <input type="checkbox" id="c29-3513968" data-price="119000" checked aria-label="케네스레이디 모카 테일러드 자켓 선택">
-        <img src="img/ken-set.webp" style="object-position:center 35%" alt="">
-        <div><div class="nm">모카 테일러드 자켓 EWJKPI4100</div><div class="meta">55(S) · 어깨 39 · 가슴 50.5 · 총장 67</div></div>
-        <div class="price">119,000원</div>
-        <a class="buy" href="https://www.29cm.co.kr/products/3513968" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-      </li>
-      <li class="item">
-        <input type="checkbox" id="c29-3513886" data-price="87000" checked aria-label="케네스레이디 모카 와이드 슬랙스 선택">
-        <img src="img/ken-pants.webp" style="object-position:center 50%" alt="">
-        <div><div class="nm">모카 와이드 슬랙스 EWSLPI4100</div><div class="meta">55(S) · 총장 104 · 밑위 30 · 인심 74 · 허리 35.5</div></div>
-        <div class="price">87,000원</div>
-        <a class="buy" href="https://www.29cm.co.kr/products/3513886" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-      </li>
-    </ul>
-    <ul class="tips"><li>상품명은 '모카'지만 상세 색상명은 KHAKI BROWN이에요. 시야쥬 모카보다 붉은기가 도는 밝은 브라운</li><li>재킷이 '조금 비침' 표기 — 밝은 이너를 입을 때 확인하세요</li><li>바지 인심 74cm라 굽이 약간 있는 신발이 안전해요</li><li>이너: 피치·아이보리 셔츠(모델 착장), 버터 크림 니트</li><li>29CM 판매가(쿠폰 전) · 2026.11.10 기준</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame">
-      <img src="img/anri-set.webp" style="object-position:center 20%" alt="라인어디션 앤리 멜란지 브라운 싱글 자켓 착용 사진">
-      <span class="tag t1">29CM · 벨트 없는 슬림</span>
-    </div>
-    <div class="caption">라인어디션 상품 사진 · 앤리 셋업 착용 모습 · 조명 때문에 보랏빛이 도는데, 실제 색은 오른쪽 바지 제품 사진에 더 가까워요</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:#7a6656"></span>
-      <div><h2>멜란지 브라운 (라인어디션 앤리)</h2><div class="sub">29CM · 무스모카와 같은 원단 · 비스듬히 여미는 원버튼 · 벨트 없음</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/anri-set.webp);background-position:50% 60%"></span><span class="chip" style="background-image:url(img/anri-pants.webp);background-position:50% 50%"></span></div>
-      <div><b class="ok">진짜 세트</b> · 브랜드 셋업(품번 PK8000) · 원단 같음(폴리 78/레이온 18/PU 4)</div>
-    </div>
-    <ul class="items">
-      <li class="item">
-        <input type="checkbox" id="c29-3579638" data-price="93740" checked aria-label="라인어디션 앤리 싱글 자켓 선택">
-        <img src="img/anri-set.webp" style="object-position:center 35%" alt="">
-        <div><div class="nm">앤리 싱글 자켓 NVJKPK8000</div><div class="meta">55(S) · 어깨 39 · 가슴 46 · 총장 65</div></div>
-        <div class="price">93,740원</div>
-        <a class="buy" href="https://www.29cm.co.kr/products/3579638" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-      </li>
-      <li class="item">
-        <input type="checkbox" id="c29-3579572" data-price="58480" checked aria-label="라인어디션 앤리 와이드 슬랙스 선택">
-        <img src="img/anri-pants.webp" style="object-position:center 50%" alt="">
-        <div><div class="nm">앤리 와이드 슬랙스 NVSLPK8000</div><div class="meta">55(S) · 총장 103 · 밑위 27 · 인심 76 · 허리 35.5</div></div>
-        <div class="price">58,480원</div>
-        <a class="buy" href="https://www.29cm.co.kr/products/3579572" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-      </li>
-    </ul>
-    <ul class="tips"><li>무스모카와 모양이 가장 비슷한 벨트 없는 버전이에요</li><li>포켓: 플랩 포켓 2개 + 가슴 입술 포켓 — 덧댄 장식 없이 깔끔</li><li>색은 무스모카보다 밝고 회색빛 도는 멜란지 브라운</li><li>29CM 판매가(쿠폰 전) · 2026.11.10 기준</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame">
-      <img src="img/dime-set.webp" style="object-position:center 20%" alt="케네스레이디 디메인 카멜 테일러드 자켓 착용 사진">
-      <span class="tag t1">29CM · 벨트 없는 슬림</span>
-    </div>
-    <div class="caption">케네스레이디 상품 사진 · 디메인 테일러드 자켓 착용 모습</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:#a0683f"></span>
-      <div><h2>카멜 (케네스레이디 디메인)</h2><div class="sub">29CM · 투버튼 더블 여밈 · 봄웜에 가장 잘 받는 색</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/dime-set.webp);background-position:50% 60%"></span><span class="chip" style="background-image:url(img/dime-pants.webp);background-position:50% 50%"></span></div>
-      <div><b class="ok">진짜 세트</b> · 브랜드 셋업(품번 OK4200) · 원단 같음(폴리 78/레이온 18/PU 4)</div>
-    </div>
-    <ul class="items">
-      <li class="item">
-        <input type="checkbox" id="c29-3688199" data-price="76540" checked aria-label="케네스레이디 디메인 테일러드 자켓 선택">
-        <img src="img/dime-set.webp" style="object-position:center 35%" alt="">
-        <div><div class="nm">디메인 테일러드 자켓 EWJKOK4200</div><div class="meta">55(S) · 어깨 39 · 가슴 45 · 총장 69</div></div>
-        <div class="price">76,540원</div>
-        <a class="buy" href="https://www.29cm.co.kr/products/3688199" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-      </li>
-      <li class="item">
-        <input type="checkbox" id="c29-3688185" data-price="50740" checked aria-label="케네스레이디 디메인 레직기 슬랙스 선택">
-        <img src="img/dime-pants.webp" style="object-position:center 50%" alt="">
-        <div><div class="nm">디메인 레직기 슬랙스 EWSLOK4200</div><div class="meta">55(S) · 총장 102 · 밑위 26 · 인심 76 · 허리 35</div></div>
-        <div class="price">50,740원</div>
-        <a class="buy" href="https://www.29cm.co.kr/products/3688185" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-      </li>
-    </ul>
-    <ul class="tips"><li>포켓: 플랩 포켓 2개 · 가슴 포켓 위에 'd'argent' 글씨 자수가 있어요</li><li>버튼으로 허리 라인 조절 가능 · 바지는 허리 단추 2개 디테일</li><li>네 후보 중 가장 저렴해요</li><li>29CM 판매가(쿠폰 전) · 2026.11.10 기준</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame">
-      <img src="img/poe-set.webp" style="object-position:center 20%" alt="케네스레이디 포에 멜란지 차콜 테일러드 자켓 착용 사진">
-      <span class="tag t1">29CM · 벨트 없는 슬림</span>
-    </div>
-    <div class="caption">케네스레이디 상품 사진 · 포에 자켓 착용 모습(사진 속 바지는 블랙)</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:#58585a"></span>
-      <div><h2>멜란지 차콜 (케네스레이디 포에)</h2><div class="sub">29CM · 피크 라펠 원버튼 · 허리선이 들어간 슬림 핏</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/poe-set.webp);background-position:50% 55%"></span><span class="chip" style="background-image:url(img/poe-pants.webp);background-position:50% 50%"></span></div>
-      <div><b class="ok">진짜 세트</b> · 브랜드 셋업(품번 PK8400) · 원단 같음(폴리 60/레이온 35/PU 5)</div>
-    </div>
-    <ul class="items">
-      <li class="item">
-        <input type="checkbox" id="c29-3567583" data-price="101400" checked aria-label="케네스레이디 포에 테일러드 자켓 선택">
-        <img src="img/poe-set.webp" style="object-position:center 35%" alt="">
-        <div><div class="nm">포에 테일러드 자켓 EVJKPK8400</div><div class="meta">55(S) · 어깨 38 · 가슴 44 · 총장 65</div></div>
-        <div class="price">101,400원</div>
-        <a class="buy" href="https://www.29cm.co.kr/products/3567583" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-      </li>
-      <li class="item">
-        <input type="checkbox" id="c29-3567581" data-price="59040" checked aria-label="케네스레이디 포에 와이드 슬랙스 선택">
-        <img src="img/poe-pants.webp" style="object-position:center 50%" alt="">
-        <div><div class="nm">포에 와이드 슬랙스 EVSLPK8400</div><div class="meta">55(S) · 총장 102 · 밑위 28 · 인심 74 · 허리 35.5</div></div>
-        <div class="price">59,040원</div>
-        <a class="buy" href="https://www.29cm.co.kr/products/3567581" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-      </li>
-    </ul>
-    <ul class="tips"><li>포켓: 플랩 포켓 2개만 — 가슴 포켓도 없어 가장 미니멀해요</li><li>네 후보 중 가장 슬림(가슴 44) — 두꺼운 니트보다 얇은 이너 추천</li><li>옵션에서 블랙이 아닌 멜란지 차콜을 고르세요 · 바지 인심 74라 굽 있는 신발</li><li>29CM 판매가(쿠폰 전) · 2026.11.10 기준</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame" style="background:#f4f3f1">
-      <img src="img/momo-set.webp" style="object-fit:contain;object-position:center" alt="케네스레이디 모모루 다크 브라운 테일러드 자켓 제품 사진">
-      <span class="tag t1">29CM · 벨트 없는 슬림</span>
-    </div>
-    <div class="caption">케네스레이디 제품 사진 · 모모루 테일러드 자켓(다크 브라운)</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:#3f3832"></span>
-      <div><h2>다크 브라운 (케네스레이디 모모루)</h2><div class="sub">29CM · 피크 라펠 원버튼 · 가을·겨울용 고급 라인</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/momo-set.webp);background-position:50% 55%"></span><span class="chip" style="background-image:url(img/momo-pants.webp);background-position:50% 50%"></span></div>
-      <div><b class="ok">진짜 세트</b> · 브랜드 셋업(품번 QK820) · 원단 같음(폴리 86/레이온 12/PU 2)</div>
-    </div>
-    <ul class="items">
-      <li class="item">
-        <input type="checkbox" id="c29-4285849" data-price="320000" checked aria-label="케네스레이디 모모루 테일러드 자켓 선택">
-        <img src="img/momo-set.webp" style="object-position:center 35%" alt="">
-        <div><div class="nm">모모루 테일러드 자켓 EVWJKQK820</div><div class="meta">55(S) · 어깨 39 · 가슴 50 · 총장 67</div></div>
-        <div class="price">320,000원</div>
-        <a class="buy" href="https://www.29cm.co.kr/products/4285849" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-      </li>
-      <li class="item">
-        <input type="checkbox" id="c29-4285852" data-price="219000" checked aria-label="케네스레이디 모모루 스트레이트 슬랙스 선택">
-        <img src="img/momo-pants.webp" style="object-position:center 50%" alt="">
-        <div><div class="nm">모모루 스트레이트 슬랙스 EVWSLQK820</div><div class="meta">55(S) · 총장 103 · 밑위 30 · 인심 73 · 허리 35.5</div></div>
-        <div class="price">219,000원</div>
-        <a class="buy" href="https://www.29cm.co.kr/products/4285852" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-      </li>
-    </ul>
-    <ul class="tips"><li>포켓: 플랩 포켓 2개 + 가슴 입술 포켓</li><li>무스모카와 가장 비슷한 진한 다크 브라운이지만 가격이 가장 높아요</li><li>바지 인심 73 — 굽 있는 신발이나 수선 고려</li><li>29CM 판매가(쿠폰 전) · 2026.11.10 기준</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame"><img src="img/sm-basic.jpg" style="object-position:center 30%" alt="쉬즈미스 베이직 원버튼 셋업 다크브라운 착용 사진"><span class="tag t1">29CM · 바지 인심 76.5</span></div>
-    <div class="caption">쉬즈미스 상품 사진 · 베이직 원버튼 셋업(다크브라운) 착용 모습</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:#3b322b"></span>
-      <div><h2>다크브라운 (쉬즈미스 베이직)</h2><div class="sub">29CM · 원버튼 싱글 · 세미 부츠컷 · 다리 길이 넉넉</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/sm-basic.jpg);background-position:50% 30%"></span><span class="chip" style="background-image:url(img/sm-basic.jpg);background-position:50% 80%"></span></div>
-      <div><b class="ok">진짜 세트</b> · 품번 Q32010 · 원단 같음(폴리 65/레이온 32/PU 3) · 2026년 6월 제조</div>
-    </div>
-    <ul class="items">
-      <li class="item"><input type="checkbox" id="c29-4107056" data-price="197100" checked aria-label="쉬즈미스 베이직 원버튼 셋업 자켓 선택"><img src="img/sm-basic.jpg" style="object-position:center 25%" alt=""><div><div class="nm">베이직 원버튼 셋업 자켓 SWSJKQ32010</div><div class="meta">55 · 어깨 38 · 가슴 47.5 · 총장 65.5</div></div><div class="price">197,100원</div><a class="buy" href="https://www.29cm.co.kr/products/4107056" target="_blank" rel="noopener">29CM에서 보기 ↗</a></li>
-      <li class="item"><input type="checkbox" id="c29-4092981" data-price="107100" checked aria-label="쉬즈미스 세미 부츠컷 셋업 팬츠 선택"><img src="img/sm-basic.jpg" style="object-position:center 85%" alt=""><div><div class="nm">세미 부츠컷 셋업 팬츠 SWSSLQ32010</div><div class="meta">55 · 총장 103 · 밑위 26.5 · 인심 76.5 · 허리 35</div></div><div class="price">107,100원</div><a class="buy" href="https://www.29cm.co.kr/products/4092981" target="_blank" rel="noopener">29CM에서 보기 ↗</a></li>
-    </ul>
-    <ul class="tips"><li>포켓: 플랩 포켓 2개 · 벨트 없음</li><li>차콜·멜란지그레이도 있어요 (55 재고는 다크브라운·멜란지그레이)</li><li>29CM 판매가(쿠폰 전) · 2026.11.10 기준</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame"><img src="img/ls-basic.jpg" style="object-position:center 30%" alt="리스트 베이직 테일러드 원버튼 셋업 브라운 착용 사진"><span class="tag t1">29CM · 바지 인심 77</span></div>
-    <div class="caption">리스트 상품 사진 · 베이직 테일러드 원버튼 셋업(브라운) 착용 모습</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:#6e5a47"></span>
-      <div><h2>브라운 (리스트 베이직)</h2><div class="sub">29CM · 원버튼 싱글 · 스트레이트 · 색상 5가지</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/ls-basic.jpg);background-position:50% 30%"></span><span class="chip" style="background-image:url(img/ls-basic.jpg);background-position:50% 80%"></span></div>
-      <div><b class="ok">진짜 세트</b> · 품번 Q82010 · 원단 같음(폴리 65/레이온 31/PU 4) · 2026년 8월 제조</div>
-    </div>
-    <ul class="items">
-      <li class="item"><input type="checkbox" id="c29-4278804" data-price="199000" checked aria-label="리스트 베이직 테일러드 원버튼 셋업 자켓 선택"><img src="img/ls-basic.jpg" style="object-position:center 25%" alt=""><div><div class="nm">베이직 테일러드 원버튼 셋업 자켓 TWSJKQ82010</div><div class="meta">55 · 어깨 34* · 가슴 44 · 총장 67</div></div><div class="price">199,000원</div><a class="buy" href="https://www.29cm.co.kr/products/4278804" target="_blank" rel="noopener">29CM에서 보기 ↗</a></li>
-      <li class="item"><input type="checkbox" id="c29-4278795" data-price="119000" checked aria-label="리스트 베이직 스트레이트 셋업 팬츠 선택"><img src="img/ls-basic.jpg" style="object-position:center 85%" alt=""><div><div class="nm">베이직 스트레이트 셋업 팬츠 TWSSLQ8201L</div><div class="meta">55 · 총장 103 · 밑위 26 · 인심 77 · 허리 35</div></div><div class="price">119,000원</div><a class="buy" href="https://www.29cm.co.kr/products/4278795" target="_blank" rel="noopener">29CM에서 보기 ↗</a></li>
-    </ul>
-    <ul class="tips"><li>포켓: 플랩 포켓 2개 + 가슴 입술 포켓 · 벨트 없음</li><li>* 리스트는 어깨를 다른 브랜드보다 작게 재요. 가슴 44로 슬림한 핏</li><li>차콜·다크네이비·멜란지그레이도 있어요 · 29CM 판매가(쿠폰 전)</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame"><img src="img/ls-modern.jpg" style="object-position:center 20%" alt="리스트 모던 테일러드 원버튼 셋업 다크브라운 착용 사진"><span class="tag t1">29CM · 벨트 없는 슬림</span></div>
-    <div class="caption">리스트 상품 사진 · 모던 테일러드 원버튼 셋업(다크브라운) 착용 모습</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:#5d5850"></span>
-      <div><h2>다크브라운 (리스트 모던)</h2><div class="sub">29CM · 원버튼 싱글 · 히든 슬림 팬츠 · 톤다운된 회갈색</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/ls-modern.jpg);background-position:50% 50%"></span><span class="chip" style="background-image:url(img/ls-modern.jpg);background-position:50% 95%"></span></div>
-      <div><b class="ok">진짜 세트</b> · 품번 Q72010 · 원단 같음(폴리 97/PU 3) · 2026년 4월 제조</div>
-    </div>
-    <ul class="items">
-      <li class="item"><input type="checkbox" id="c29-4066134" data-price="170100" checked aria-label="리스트 모던 테일러드 원버튼 셋업 자켓 선택"><img src="img/ls-modern.jpg" style="object-position:center 30%" alt=""><div><div class="nm">모던 테일러드 원버튼 셋업 자켓 TWSJKQ72010</div><div class="meta">55 · 어깨 36* · 가슴 46 · 총장 66</div></div><div class="price">170,100원</div><a class="buy" href="https://www.29cm.co.kr/products/4066134" target="_blank" rel="noopener">29CM에서 보기 ↗</a></li>
-      <li class="item"><input type="checkbox" id="c29-4066120" data-price="89100" checked aria-label="리스트 모던 히든 슬림 셋업 팬츠 선택"><img src="img/ls-modern.jpg" style="object-position:center 95%" alt=""><div><div class="nm">모던 히든 슬림 셋업 팬츠 TWSSLQ72010</div><div class="meta">55 · 총장 101 · 밑위 26 · 인심 75 · 허리 33</div></div><div class="price">89,100원</div><a class="buy" href="https://www.29cm.co.kr/products/4066120" target="_blank" rel="noopener">29CM에서 보기 ↗</a></li>
-    </ul>
-    <ul class="tips"><li>포켓: 플랩 포켓 2개 + 가슴 입술 포켓 · 벨트 없음</li><li>⚠️ 바지 허리 33cm — 플레어 25(35.25)보다 2cm 작아 낄 수 있어요</li><li>폴리 97% 원단 · 29CM 판매가(쿠폰 전)</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame" style="background:#f4f3f1"><img src="img/sm-minimal.jpg" style="object-fit:contain;object-position:center" alt="쉬즈미스 원 버튼 미니멀 셋업 자켓 그레이베이지 제품 사진"><span class="tag t1">29CM · 벨트 없는 슬림</span></div>
-    <div class="caption">쉬즈미스 제품 사진 · 원 버튼 미니멀 셋업 자켓(그레이베이지)</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:#b7aa98"></span>
-      <div><h2>그레이베이지 (쉬즈미스 미니멀)</h2><div class="sub">29CM · 피크 라펠 원버튼 · 포멀 와이드 팬츠 · 봄웜에 부드러운 색</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/sm-minimal.jpg);background-position:50% 50%"></span><span class="chip" style="background-image:url(img/sm-minimal.jpg);background-position:40% 70%"></span></div>
-      <div><b class="ok">진짜 세트</b> · 품번 Q42020 · 원단 같음(폴리 65/레이온 32/PU 3) · 2026년 9월 제조</div>
-    </div>
-    <ul class="items">
-      <li class="item"><input type="checkbox" id="c29-4303714" data-price="229000" checked aria-label="쉬즈미스 원 버튼 미니멀 셋업 자켓 선택"><img src="img/sm-minimal.jpg" style="object-position:center 40%" alt=""><div><div class="nm">원 버튼 미니멀 셋업 자켓 SWSJKQ42020</div><div class="meta">55 · 어깨 38 · 가슴 48 · 총장 65.4</div></div><div class="price">229,000원</div><a class="buy" href="https://www.29cm.co.kr/products/4303714" target="_blank" rel="noopener">29CM에서 보기 ↗</a></li>
-      <li class="item"><input type="checkbox" id="c29-4337140" data-price="129000" checked aria-label="쉬즈미스 포멀 와이드 셋업 팬츠 선택"><img src="img/sm-minimal.jpg" style="object-position:center 60%" alt=""><div><div class="nm">포멀 와이드 셋업 팬츠 SWSSLQ42020</div><div class="meta">55 · 총장 101.6 · 밑위 27 · 인심 74.6 · 허리 36</div></div><div class="price">129,000원</div><a class="buy" href="https://www.29cm.co.kr/products/4337140" target="_blank" rel="noopener">29CM에서 보기 ↗</a></li>
-    </ul>
-    <ul class="tips"><li>포켓: 플랩 포켓 2개 + 가슴 입술 포켓 · 벨트 없음</li><li>차콜도 있어요 · 바지 인심 74.6 — 굽 있는 신발 추천</li><li>29CM 판매가(쿠폰 전) · 2026.11.10 기준</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame"><img src="img/roem-allday.jpg" style="object-position:center 30%" alt="로엠 올데이 테일러드 자켓 차콜 착용 사진"><span class="tag t1">29CM · 울 혼방</span></div>
-    <div class="caption">로엠 상품 사진 · 올데이 테일러드 자켓(차콜) 착용 모습 · 사진 속 하의는 스커트</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:#45464a"></span>
-      <div><h2>차콜 (로엠 올데이)</h2><div class="sub">29CM · 투버튼 테일러드 · 플레어핏 슬랙스 · 가장 저렴한 울 혼방</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/roem-allday.jpg);background-position:50% 45%"></span><span class="chip" style="background-image:url(img/roem-pants.jpg);background-position:50% 80%"></span></div>
-      <div><b class="ok">같은 원단</b> · 폴리 70/레이온 17/울 8/PU 5 · 재킷·바지 모두 차콜 옵션</div>
-    </div>
-    <ul class="items">
-      <li class="item"><input type="checkbox" id="c29-4103234" data-price="129000" checked aria-label="로엠 올데이 테일러드 자켓 선택"><img src="img/roem-allday.jpg" style="object-position:center 35%" alt=""><div><div class="nm">[올데이] 테일러드 자켓 RMJKG49A55</div><div class="meta">S · 어깨 40.5 · 가슴 51 · 총장 66</div></div><div class="price">129,000원</div><a class="buy" href="https://www.29cm.co.kr/products/4103234" target="_blank" rel="noopener">29CM에서 보기 ↗</a></li>
-      <li class="item"><input type="checkbox" id="c29-4128601" data-price="59900" checked aria-label="로엠 플레어핏 슬랙스 선택"><img src="img/roem-pants.jpg" style="object-position:center 80%" alt=""><div><div class="nm">플레어핏 슬랙스 RMTWG49R55</div><div class="meta">67 · 총장 103 · 밑위 28.8 · 인심 74 · 허리 35</div></div><div class="price">59,900원</div><a class="buy" href="https://www.29cm.co.kr/products/4128601" target="_blank" rel="noopener">29CM에서 보기 ↗</a></li>
-    </ul>
-    <ul class="tips"><li>포켓: 플랩 포켓 2개 · 벨트 없음 · 다섯 개 중 품이 가장 여유 있어요(가슴 51)</li><li>바지는 숫자 사이즈 — 67이 허리 35로 25에 해당 · 썸네일 바지 사진은 블랙</li><li>옵션에서 두 벌 모두 차콜을 고르세요 · 29CM 판매가(쿠폰 전)</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame">
-      <img src="img/3851758-0.jpg" style="object-position:center 30%" alt="시야쥬 모카 브라운 블레이저와 슬랙스를 함께 입은 사진">
-    </div>
-    <div class="caption">시야쥬 상품 사진 · 블레이저와 슬랙스를 함께 입은 모습</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:var(--sw-mocha)"></span>
-      <div><h2>모카 브라운</h2><div class="sub">시야쥬 · 브랜드가 함께 낸 세트 · 봄웜에 가장 잘 받는 색</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/3851758-0.jpg);background-position:30% 62%"></span><span class="chip" style="background-image:url(img/3853343-0.jpg);background-position:45% 45%"></span></div>
-      <div><b class="ok">진짜 세트</b> · 원단(폴리 63·레이온 32·우레탄 5)과 색 코드(MCBR)가 같아요.</div>
-    </div>
-    <ul class="items">
-      <li class="item">
-        <input type="checkbox" id="c3851758" data-price="160650" checked aria-label="시야쥬 모카 브라운 블레이저 선택">
-        <img src="img/3851758-0.jpg" style="object-position:center 35%" alt="">
-        <div><div class="nm">SIOT4099 루즈핏 싱글 블레이저_Mocha brown</div><div class="meta">One size · 1개 · 쿠폰가 128,520원</div></div>
-        <div class="price"><s>189,000원</s>160,650원</div>
-        <a class="buy" href="https://www.musinsa.com/products/3851758" target="_blank" rel="noopener">무신사에서 보기 ↗</a>
-      </li>
-      <li class="item">
-        <input type="checkbox" id="c3853343" data-price="83700" checked aria-label="시야쥬 모카 브라운 부츠컷 슬랙스 선택">
-        <img src="img/3853343-0.jpg" style="object-position:center 40%" alt="">
-        <div><div class="nm">SIPT7108 원턱 루즈핏 부츠컷 슬랙스_Mocha brown</div><div class="meta">S · 1개 · 쿠폰가 66,960원</div></div>
-        <div class="price"><s>93,000원</s>83,700원</div>
-        <a class="buy" href="https://www.musinsa.com/products/3853343" target="_blank" rel="noopener">무신사에서 보기 ↗</a>
-      </li>
-    </ul>
-    <ul class="tips"><li>이너: 아이보리 니트, 크림 셔츠</li><li>신발: 카멜 로퍼, 브라운 앵클부츠</li><li>바지 S 허리 둘레가 약 69cm라 25보다 커요. 받으면 수선이 필요한지 확인해 보세요</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame">
-      <img src="img/3851760-0.jpg" style="object-position:center 30%" alt="시야쥬 차콜 블레이저와 슬랙스를 함께 입은 사진">
-    </div>
-    <div class="caption">시야쥬 상품 사진 · 블레이저와 슬랙스를 함께 입은 모습</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:var(--sw-charcoal)"></span>
-      <div><h2>차콜</h2><div class="sub">시야쥬 · 모카 브라운과 같은 라인의 세트 · 밝은 회색빛 차콜</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/3851760-0.jpg);background-position:22% 55%"></span><span class="chip" style="background-image:url(img/3853373-0.jpg);background-position:45% 45%"></span></div>
-      <div><b class="ok">진짜 세트</b> · 원단(폴리 63·레이온 32·우레탄 5)과 색 코드(CH)가 같아요.</div>
-    </div>
-    <ul class="items">
-      <li class="item">
-        <input type="checkbox" id="c3851760" data-price="160650" checked aria-label="시야쥬 차콜 블레이저 선택">
-        <img src="img/3851760-0.jpg" style="object-position:center 35%" alt="">
-        <div><div class="nm">SIOT4099 루즈핏 싱글 블레이저_Charcoal</div><div class="meta">One size · 1개 · 쿠폰가 128,520원</div></div>
-        <div class="price"><s>189,000원</s>160,650원</div>
-        <a class="buy" href="https://www.musinsa.com/products/3851760" target="_blank" rel="noopener">무신사에서 보기 ↗</a>
-      </li>
-      <li class="item">
-        <input type="checkbox" id="c3853373" data-price="83700" checked aria-label="시야쥬 차콜 부츠컷 슬랙스 선택">
-        <img src="img/3853373-0.jpg" style="object-position:center 40%" alt="">
-        <div><div class="nm">SIPT7108 원턱 루즈핏 부츠컷 슬랙스_Charcoal</div><div class="meta">S · 1개 · 쿠폰가 66,960원</div></div>
-        <div class="price"><s>93,000원</s>83,700원</div>
-        <a class="buy" href="https://www.musinsa.com/products/3853373" target="_blank" rel="noopener">무신사에서 보기 ↗</a>
-      </li>
-    </ul>
-    <ul class="tips"><li>이너: 아이보리 그래픽 티, 크림 셔츠로 캐주얼하게</li><li>신발: 블랙 로퍼, 플랫 샌들(봄)</li><li>무신사 그레이 세트보다 밝고 따뜻한 회색이라 봄웜에도 덜 칙칙해요</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame split" style="background:#f4f3f1">
-      <img src="img/3874701-0.jpg" style="object-position:center 30%" alt="비지트인뉴욕 베이지 테일러드 투버튼 재킷 상품 사진">
-      <img src="img/4198535-0.jpg" style="object-position:center 75%" alt="비지트인뉴욕 베이지 슬림 부츠컷 팬츠 상품 사진">
-      <span class="tag t1">재킷</span><span class="tag t2">슬림 부츠컷</span>
-    </div>
-    <div class="caption">상의와 하의 상품 사진을 위아래로 이어 붙인 착장 예시</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:var(--sw-greige)"></span>
-      <div><h2>그레이지 베이지</h2><div class="sub">비지트인뉴욕 · 브랜드가 함께 낸 세트 · 허리 라인 들어간 핏</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/3874701-0.jpg);background-position:35% 55%"></span><span class="chip" style="background-image:url(img/4198535-0.jpg);background-position:45% 45%"></span></div>
-      <div><b class="ok">진짜 세트</b> · 원단(폴리 65·레이온 28·우레탄 7)과 색 코드 BEIGE(25)가 같아요.</div>
-    </div>
-    <ul class="items">
-      <li class="item">
-        <input type="checkbox" id="c3874701" data-price="95900" checked aria-label="비지트인뉴욕 테일러드 재킷 선택">
-        <img src="img/3874701-0.jpg" style="object-position:center 30%" alt="">
-        <div><div class="nm">셋업 테일러드 싱글 투버튼 재킷(VA2TJ94)</div><div class="meta">BEIGE · 055 · 1개 · 장바구니가 80,180원</div></div>
-        <div class="price"><s>229,000원</s>95,900원</div>
-        <a class="buy" href="https://www.musinsa.com/products/3874701" target="_blank" rel="noopener">무신사에서 보기 ↗</a>
-      </li>
-      <li class="item">
-        <input type="checkbox" id="c4198535" data-price="59900" checked aria-label="비지트인뉴욕 슬림 부츠컷 팬츠 선택">
-        <img src="img/4198535-0.jpg" style="object-position:center 60%" alt="">
-        <div><div class="nm">셋업 슬림 부츠컷 팬츠(VA2TP94)</div><div class="meta">BEIGE · 055 · 1개</div></div>
-        <div class="price"><s>149,000원</s>59,900원</div>
-        <a class="buy" href="https://www.musinsa.com/products/4198535" target="_blank" rel="noopener">무신사에서 보기 ↗</a>
-      </li>
-    </ul>
-    <ul class="tips"><li>이너: 브라운 니트, 아이보리 블라우스</li><li>신발: 카멜 로퍼, 누드 펌프스</li><li>밝은 웜 베이지라 봄웜 얼굴을 환하게 해줘요. 모카 셋업보다 단정한 출근룩이에요</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame split">
-      <img src="img/2149534-0.jpg" style="object-position:center 12%" alt="더스티 베이지 베이식 블레이저 착용 사진">
-      <img src="img/6272202-0.jpg" style="object-position:center 92%" alt="그레이시 베이지 세미 부츠컷 슬랙스 착용 사진">
-      <span class="tag t1">블레이저</span><span class="tag t2">세미 부츠컷</span>
-    </div>
-    <div class="caption">상의와 하의 상품 사진을 위아래로 이어 붙인 착장 예시</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:var(--sw-beige)"></span>
-      <div><h2>다크 베이지</h2><div class="sub">무신사 스탠다드 · 톤온톤</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/2149534-0.jpg);background-position:30% 45%"></span><span class="chip" style="background-image:url(img/6272202-0.jpg);background-position:45% 70%"></span></div>
-      <div><b class="warn">톤온톤</b> · 원단은 같지만(67/29/4) 블레이저가 바지보다 한 톤 진해요.</div>
-    </div>
-    <ul class="items">
-      <li class="item">
-        <input type="checkbox" id="c2149534" data-price="79890" checked aria-label="더스티 베이지 베이식 블레이저 선택">
-        <img src="img/2149534-0.jpg" style="object-position:center 25%" alt="">
-        <div><div class="nm">우먼즈 베이식 블레이저 [더스티 베이지]</div><div class="meta">S · 1개</div></div>
-        <div class="price"><s>99,900원</s>79,890원</div>
-        <a class="buy" href="https://www.musinsa.com/products/2149534" target="_blank" rel="noopener">무신사에서 보기 ↗</a>
-      </li>
-      <li class="item">
-        <input type="checkbox" id="c6272202" data-price="49900" checked aria-label="그레이시 베이지 세미 부츠컷 슬랙스 선택">
-        <img src="img/6272202-0.jpg" style="object-position:center 75%" alt="">
-        <div><div class="nm">우먼즈 세미 부츠 컷 히든 밴딩 슬랙스 [그레이시 베이지]</div><div class="meta">25 · 1개</div></div>
-        <div class="price">49,900원</div>
-        <a class="buy" href="https://www.musinsa.com/products/6272202" target="_blank" rel="noopener">무신사에서 보기 ↗</a>
-      </li>
-    </ul>
-    <ul class="tips"><li>이너: 초콜릿 브라운 니트로 위아래 톤을 이어주기</li><li>신발: 다크 브라운 로퍼, 스웨이드 앵클부츠</li><li>따로 입기 좋아요. 블레이저는 데님에, 바지는 니트에</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame split">
-      <img src="img/1618311-0.jpg" style="object-position:center 18%" alt="네이비 오버사이즈 블레이저 착용 사진">
-      <img src="img/6525757-0.jpg" style="object-position:center 92%" alt="다크 네이비 플레어 슬랙스 착용 사진">
-      <span class="tag t1">블레이저</span><span class="tag t2">플레어 슬랙스</span>
-    </div>
-    <div class="caption">상의와 하의 상품 사진을 위아래로 이어 붙인 착장 예시</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:var(--sw-navy)"></span>
-      <div><h2>네이비</h2><div class="sub">무신사 스탠다드 · 출근, 면접, 격식 있는 자리</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/1618311-0.jpg);background-position:30% 70%"></span><span class="chip" style="background-image:url(img/6525757-0.jpg);background-position:45% 72%"></span></div>
-      <div><b class="ok">색 잘 맞음</b> · 원단 같음(67/29/4). 블레이저 네이비, 바지 다크 네이비.</div>
-    </div>
-    <ul class="items">
-      <li class="item">
-        <input type="checkbox" id="c1618311" data-price="99900" checked aria-label="네이비 오버사이즈 블레이저 선택">
-        <img src="img/1618311-0.jpg" style="object-position:center 30%" alt="">
-        <div><div class="nm">우먼즈 오버사이즈 블레이저 [네이비]</div><div class="meta">S · 1개</div></div>
-        <div class="price">99,900원</div>
-        <a class="buy" href="https://www.musinsa.com/products/1618311" target="_blank" rel="noopener">무신사에서 보기 ↗</a>
-      </li>
-      <li class="item">
-        <input type="checkbox" id="c6525757" data-price="36890" checked aria-label="다크 네이비 플레어 슬랙스 선택">
-        <img src="img/6525757-0.jpg" style="object-position:center 75%" alt="">
-        <div><div class="nm">우먼즈 플레어 히든 밴딩 슬랙스 [다크 네이비]</div><div class="meta">25 · 1개 · 타임특가</div></div>
-        <div class="price"><s>49,900원</s>36,890원</div>
-        <a class="buy" href="https://www.musinsa.com/products/6525757" target="_blank" rel="noopener">무신사에서 보기 ↗</a>
-      </li>
-    </ul>
-    <ul class="tips"><li>이너: 아이보리·크림 셔츠로 얼굴 쪽을 밝게</li><li>신발: 블랙 로퍼, 앞코 뾰족한 펌프스</li><li>진한 네이비는 봄웜에 무거울 수 있어요. 밝은 이너가 필수예요</li></ul>
-  </div>
-</section>
-
-<section class="look">
-  <div>
-    <div class="frame split">
-      <img src="img/1618309-0.jpg" style="object-position:center 15%" alt="그레이 오버사이즈 블레이저 착용 사진">
-      <img src="img/6525758-0.jpg" style="object-position:center 92%" alt="그레이 플레어 슬랙스 착용 사진">
-      <span class="tag t1">블레이저</span><span class="tag t2">플레어 슬랙스</span>
-    </div>
-    <div class="caption">상의와 하의 상품 사진을 위아래로 이어 붙인 착장 예시</div>
-  </div>
-  <div class="side">
-    <div class="look-head">
-      <span class="swatch" style="background:var(--sw-grey)"></span>
-      <div><h2>차콜 톤 그레이</h2><div class="sub">무신사 스탠다드 · 진회색, 가장 무난한 출근룩</div></div>
-      <div class="set-sum"><small>세트 합계</small><span data-sum></span></div>
-    </div>
-    <div class="match">
-      <div class="chips"><span class="chip" style="background-image:url(img/1618309-0.jpg);background-position:25% 60%"></span><span class="chip" style="background-image:url(img/6525758-0.jpg);background-position:45% 72%"></span></div>
-      <div><b class="ok">색 코드 같음</b> · 둘 다 GR, 원단 같음(67/29/4).</div>
-    </div>
-    <ul class="items">
-      <li class="item">
-        <input type="checkbox" id="c1618309" data-price="89890" checked aria-label="그레이 오버사이즈 블레이저 선택">
-        <img src="img/1618309-0.jpg" style="object-position:center 30%" alt="">
-        <div><div class="nm">우먼즈 오버사이즈 블레이저 [그레이]</div><div class="meta">S · 1개</div></div>
-        <div class="price"><s>99,900원</s>89,890원</div>
-        <a class="buy" href="https://www.musinsa.com/products/1618309" target="_blank" rel="noopener">무신사에서 보기 ↗</a>
-      </li>
-      <li class="item">
-        <input type="checkbox" id="c6525758" data-price="44390" checked aria-label="그레이 플레어 슬랙스 선택">
-        <img src="img/6525758-0.jpg" style="object-position:center 75%" alt="">
-        <div><div class="nm">우먼즈 플레어 히든 밴딩 슬랙스 [그레이]</div><div class="meta">25 · 1개</div></div>
-        <div class="price"><s>49,900원</s>44,390원</div>
-        <a class="buy" href="https://www.musinsa.com/products/6525758" target="_blank" rel="noopener">무신사에서 보기 ↗</a>
-      </li>
-    </ul>
-    <ul class="tips"><li>이너: 아이보리 니트, 크림 블라우스로 쿨톤 회색을 부드럽게</li><li>신발: 블랙 로퍼, 버건디 펌프스</li><li>골드 귀걸이 같은 따뜻한 포인트를 더하면 봄웜에도 잘 받아요</li></ul>
-  </div>
-</section>
-
-<div class="notes">
-  <h3>사기 전에</h3>
-  <ul>
-    <li>가격은 2026년 11월 3일 무신사 판매가예요. 장바구니에서는 여섯 벌 993,310원으로 나왔어요.</li>
-    <li>비지트인뉴욕 두 상품은 11월 6일(금) 이내 발송 예정이에요. 재킷 055는 장바구니에서 80,180원으로 표시됐어요.</li>
-    <li>시야쥬 네 상품은 쿠폰가가 따로 있어요(블레이저 128,520원, 바지 66,960원씩). 결제 전에 쿠폰이 적용됐는지 확인해 주세요.</li>
-    <li>시야쥬 바지 S는 허리 둘레가 약 69cm라 25보다 커요. 모카와 차콜 둘 다 같은 사이즈라 수선 여부를 함께 확인해 주세요.</li>
-    <li>시야쥬는 11월 6일(금) 도착 예정이고, 무신사 스탠다드 상품은 내일 도착보장이에요.</li>
-    <li>네이비 플레어 슬랙스는 타임특가라 가격이 곧 바뀔 수 있어요.</li>
-    <li>여기서 체크한 내용은 이 브라우저에만 저장돼요. 결제는 무신사 장바구니에서 직접 진행해 주세요.</li>
-  </ul>
+<header class="page"><h1>사계절 셋업 구매 노트</h1><p>셋업 18세트 · 사진을 누르면 쇼핑몰 상세페이지로 이동해요.</p></header>
+<section class="grp"><div class="ghead"><span class="dot" style="background:var(--sw-charcoal)"></span><h2>차콜 (마조네)</h2><span class="note">진짜 세트</span><span class="sum">세트 269,740원</span></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/4116126" target="_blank" rel="noopener" aria-label="마조네 TAILORED SINGLE JACKET 상세페이지 열기"><div class="ph"><img src="img/majo-set.jpg" alt="" loading="lazy" style="object-position:center 25%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">마조네 · 29CM</span><span class="nm">TAILORED SINGLE JACKET</span><span class="mt">차콜 · S</span><span class="pr">159,120원<s>249,000원</s></span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/4115407" target="_blank" rel="noopener" aria-label="마조네 BUTTON SLIT BOOTCUT PANTS 상세페이지 열기"><div class="ph"><img src="img/majo-pants.jpg" alt="" loading="lazy" style="object-position:center 70%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">마조네 · 29CM</span><span class="nm">BUTTON SLIT BOOTCUT PANTS</span><span class="mt">차콜 · S</span><span class="pr">110,620원</span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:#4a3b32"></span><h2>무스모카 (라인어디션)</h2><span class="note">진짜 세트</span><span class="sum">세트 263,000원</span></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/3452195" target="_blank" rel="noopener" aria-label="라인어디션 무스모카 벨티드 자켓 상세페이지 열기"><div class="ph"><img src="img/line-set.webp" alt="" loading="lazy" style="object-position:center 30%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">라인어디션 · 29CM</span><span class="nm">무스모카 벨티드 자켓</span><span class="mt">무스모카 · 55(S)</span><span class="pr">164,000원</span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/3450179" target="_blank" rel="noopener" aria-label="라인어디션 무스모카 스트레이트핏 슬랙스 상세페이지 열기"><div class="ph"><img src="img/line-pants.webp" alt="" loading="lazy" style="object-position:center 50%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">라인어디션 · 29CM</span><span class="nm">무스모카 스트레이트핏 슬랙스</span><span class="mt">무스모카 · 55(S)</span><span class="pr">99,000원</span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:#6b4e38"></span><h2>모카 (케네스레이디)</h2><span class="note">진짜 세트</span><span class="sum">세트 206,000원</span></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/3513968" target="_blank" rel="noopener" aria-label="케네스레이디 모카 테일러드 자켓 상세페이지 열기"><div class="ph"><img src="img/ken-set.webp" alt="" loading="lazy" style="object-position:center 35%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">케네스레이디 · 29CM</span><span class="nm">모카 테일러드 자켓</span><span class="mt">모카 · 55(S)</span><span class="pr">119,000원</span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/3513886" target="_blank" rel="noopener" aria-label="케네스레이디 모카 와이드 슬랙스 상세페이지 열기"><div class="ph"><img src="img/ken-pants.webp" alt="" loading="lazy" style="object-position:center 50%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">케네스레이디 · 29CM</span><span class="nm">모카 와이드 슬랙스</span><span class="mt">모카 · 55(S)</span><span class="pr">87,000원</span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:#7a6656"></span><h2>멜란지 브라운 (라인어디션 앤리)</h2><span class="note">진짜 세트</span><span class="sum">세트 152,220원</span></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/3579638" target="_blank" rel="noopener" aria-label="라인어디션 앤리 싱글 자켓 상세페이지 열기"><div class="ph"><img src="img/anri-set.webp" alt="" loading="lazy" style="object-position:center 35%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">라인어디션 · 29CM</span><span class="nm">앤리 싱글 자켓</span><span class="mt">멜란지 브라운 · 55(S)</span><span class="pr">93,740원</span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/3579572" target="_blank" rel="noopener" aria-label="라인어디션 앤리 와이드 슬랙스 상세페이지 열기"><div class="ph"><img src="img/anri-pants.webp" alt="" loading="lazy" style="object-position:center 50%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">라인어디션 · 29CM</span><span class="nm">앤리 와이드 슬랙스</span><span class="mt">멜란지 브라운 · 55(S)</span><span class="pr">58,480원</span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:#a0683f"></span><h2>카멜 (케네스레이디 디메인)</h2><span class="note">진짜 세트</span><span class="sum">세트 127,280원</span></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/3688199" target="_blank" rel="noopener" aria-label="케네스레이디 디메인 테일러드 자켓 상세페이지 열기"><div class="ph"><img src="img/dime-set.webp" alt="" loading="lazy" style="object-position:center 35%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">케네스레이디 · 29CM</span><span class="nm">디메인 테일러드 자켓</span><span class="mt">카멜 · 55(S)</span><span class="pr">76,540원</span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/3688185" target="_blank" rel="noopener" aria-label="케네스레이디 디메인 레직기 슬랙스 상세페이지 열기"><div class="ph"><img src="img/dime-pants.webp" alt="" loading="lazy" style="object-position:center 50%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">케네스레이디 · 29CM</span><span class="nm">디메인 레직기 슬랙스</span><span class="mt">카멜 · 55(S)</span><span class="pr">50,740원</span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:#58585a"></span><h2>멜란지 차콜 (케네스레이디 포에)</h2><span class="note">진짜 세트</span><span class="sum">세트 160,440원</span></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/3567583" target="_blank" rel="noopener" aria-label="케네스레이디 포에 테일러드 자켓 상세페이지 열기"><div class="ph"><img src="img/poe-set.webp" alt="" loading="lazy" style="object-position:center 35%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">케네스레이디 · 29CM</span><span class="nm">포에 테일러드 자켓</span><span class="mt">멜란지 차콜 · 55(S)</span><span class="pr">101,400원</span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/3567581" target="_blank" rel="noopener" aria-label="케네스레이디 포에 와이드 슬랙스 상세페이지 열기"><div class="ph"><img src="img/poe-pants.webp" alt="" loading="lazy" style="object-position:center 50%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">케네스레이디 · 29CM</span><span class="nm">포에 와이드 슬랙스</span><span class="mt">멜란지 차콜 · 55(S)</span><span class="pr">59,040원</span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:#3f3832"></span><h2>다크 브라운 (케네스레이디 모모루)</h2><span class="note">진짜 세트</span><span class="sum">세트 539,000원</span></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/4285849" target="_blank" rel="noopener" aria-label="케네스레이디 모모루 테일러드 자켓 상세페이지 열기"><div class="ph"><img src="img/momo-set.webp" alt="" loading="lazy" style="object-position:center 35%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">케네스레이디 · 29CM</span><span class="nm">모모루 테일러드 자켓</span><span class="mt">다크 브라운 · 55(S)</span><span class="pr">320,000원</span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/4285852" target="_blank" rel="noopener" aria-label="케네스레이디 모모루 스트레이트 슬랙스 상세페이지 열기"><div class="ph"><img src="img/momo-pants.webp" alt="" loading="lazy" style="object-position:center 50%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">케네스레이디 · 29CM</span><span class="nm">모모루 스트레이트 슬랙스</span><span class="mt">다크 브라운 · 55(S)</span><span class="pr">219,000원</span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:#3b322b"></span><h2>다크브라운 (쉬즈미스 베이직)</h2><span class="note">진짜 세트</span><span class="sum">세트 304,200원</span></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/4107056" target="_blank" rel="noopener" aria-label="쉬즈미스 베이직 원버튼 셋업 자켓 상세페이지 열기"><div class="ph"><img src="img/sm-basic.jpg" alt="" loading="lazy" style="object-position:center 25%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">쉬즈미스 · 29CM</span><span class="nm">베이직 원버튼 셋업 자켓</span><span class="mt">다크브라운 · 55</span><span class="pr">197,100원</span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/4092981" target="_blank" rel="noopener" aria-label="쉬즈미스 세미 부츠컷 셋업 팬츠 상세페이지 열기"><div class="ph"><img src="img/sm-basic.jpg" alt="" loading="lazy" style="object-position:center 85%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">쉬즈미스 · 29CM</span><span class="nm">세미 부츠컷 셋업 팬츠</span><span class="mt">다크브라운 · 55</span><span class="pr">107,100원</span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:#6e5a47"></span><h2>브라운 (리스트 베이직)</h2><span class="tag ok">구매함</span><span class="note">진짜 세트</span><span class="sum">세트 318,000원</span></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/4278804" target="_blank" rel="noopener" aria-label="리스트 베이직 테일러드 원버튼 셋업 자켓 상세페이지 열기"><div class="ph"><img src="img/ls-basic.jpg" alt="" loading="lazy" style="object-position:center 25%"><span class="bd ok">구매함</span><span class="go">상세 ↗</span></div><div class="tx"><span class="br">리스트 · 29CM</span><span class="nm">베이직 테일러드 원버튼 셋업 자켓</span><span class="mt">브라운 · 55</span><span class="pr">199,000원</span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/4278795" target="_blank" rel="noopener" aria-label="리스트 베이직 스트레이트 셋업 팬츠 상세페이지 열기"><div class="ph"><img src="img/ls-basic.jpg" alt="" loading="lazy" style="object-position:center 85%"><span class="bd ok">구매함</span><span class="go">상세 ↗</span></div><div class="tx"><span class="br">리스트 · 29CM</span><span class="nm">베이직 스트레이트 셋업 팬츠</span><span class="mt">브라운 · 55</span><span class="pr">119,000원</span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:#5d5850"></span><h2>다크브라운 (리스트 모던)</h2><span class="note">진짜 세트</span><span class="sum">세트 259,200원</span></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/4066134" target="_blank" rel="noopener" aria-label="리스트 모던 테일러드 원버튼 셋업 자켓 상세페이지 열기"><div class="ph"><img src="img/ls-modern.jpg" alt="" loading="lazy" style="object-position:center 30%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">리스트 · 29CM</span><span class="nm">모던 테일러드 원버튼 셋업 자켓</span><span class="mt">다크브라운 · 55</span><span class="pr">170,100원</span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/4066120" target="_blank" rel="noopener" aria-label="리스트 모던 히든 슬림 셋업 팬츠 상세페이지 열기"><div class="ph"><img src="img/ls-modern.jpg" alt="" loading="lazy" style="object-position:center 95%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">리스트 · 29CM</span><span class="nm">모던 히든 슬림 셋업 팬츠</span><span class="mt">다크브라운 · 55</span><span class="pr">89,100원</span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:#b7aa98"></span><h2>그레이베이지 (쉬즈미스 미니멀)</h2><span class="note">진짜 세트</span><span class="sum">세트 358,000원</span></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/4303714" target="_blank" rel="noopener" aria-label="쉬즈미스 원 버튼 미니멀 셋업 자켓 상세페이지 열기"><div class="ph"><img src="img/sm-minimal.jpg" alt="" loading="lazy" style="object-position:center 40%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">쉬즈미스 · 29CM</span><span class="nm">원 버튼 미니멀 셋업 자켓</span><span class="mt">그레이베이지 · 55</span><span class="pr">229,000원</span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/4337140" target="_blank" rel="noopener" aria-label="쉬즈미스 포멀 와이드 셋업 팬츠 상세페이지 열기"><div class="ph"><img src="img/sm-minimal.jpg" alt="" loading="lazy" style="object-position:center 60%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">쉬즈미스 · 29CM</span><span class="nm">포멀 와이드 셋업 팬츠</span><span class="mt">그레이베이지 · 55</span><span class="pr">129,000원</span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:#45464a"></span><h2>차콜 (로엠 올데이)</h2><span class="note">같은 원단</span><span class="sum">세트 188,900원</span></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/4103234" target="_blank" rel="noopener" aria-label="로엠 테일러드 자켓 상세페이지 열기"><div class="ph"><img src="img/roem-allday.jpg" alt="" loading="lazy" style="object-position:center 35%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">로엠 · 29CM</span><span class="nm">테일러드 자켓</span><span class="mt">차콜 · S</span><span class="pr">129,000원</span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/4128601" target="_blank" rel="noopener" aria-label="로엠 플레어핏 슬랙스 상세페이지 열기"><div class="ph"><img src="img/roem-pants.jpg" alt="" loading="lazy" style="object-position:center 80%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">로엠 · 29CM</span><span class="nm">플레어핏 슬랙스</span><span class="mt">차콜 · 67</span><span class="pr">59,900원</span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:var(--sw-mocha)"></span><h2>모카 브라운</h2><span class="note">진짜 세트</span><span class="sum">세트 244,350원</span></div><ul class="grid"><li><a class="card" href="https://www.musinsa.com/products/3851758" target="_blank" rel="noopener" aria-label="시야쥬 루즈핏 싱글 블레이저 상세페이지 열기"><div class="ph"><img src="img/3851758-0.jpg" alt="" loading="lazy" style="object-position:center 35%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">시야쥬 · 무신사</span><span class="nm">루즈핏 싱글 블레이저</span><span class="mt">모카 브라운 · One size</span><span class="pr">160,650원<s>189,000원</s></span></div></a></li><li><a class="card" href="https://www.musinsa.com/products/3853343" target="_blank" rel="noopener" aria-label="시야쥬 원턱 루즈핏 부츠컷 슬랙스 상세페이지 열기"><div class="ph"><img src="img/3853343-0.jpg" alt="" loading="lazy" style="object-position:center 40%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">시야쥬 · 무신사</span><span class="nm">원턱 루즈핏 부츠컷 슬랙스</span><span class="mt">모카 브라운 · S</span><span class="pr">83,700원<s>93,000원</s></span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:var(--sw-charcoal)"></span><h2>차콜</h2><span class="tag warn">환불</span><span class="note">진짜 세트</span><span class="sum">세트 244,350원</span></div><ul class="grid"><li><a class="card refund" href="https://www.musinsa.com/products/3851760" target="_blank" rel="noopener" aria-label="시야쥬 루즈핏 싱글 블레이저 상세페이지 열기"><div class="ph"><img src="img/3851760-0.jpg" alt="" loading="lazy" style="object-position:center 35%"><span class="bd warn">환불</span><span class="go">상세 ↗</span></div><div class="tx"><span class="br">시야쥬 · 무신사</span><span class="nm">루즈핏 싱글 블레이저</span><span class="mt">차콜 · One size</span><span class="pr">160,650원<s>189,000원</s></span></div></a></li><li><a class="card refund" href="https://www.musinsa.com/products/3853373" target="_blank" rel="noopener" aria-label="시야쥬 원턱 루즈핏 부츠컷 슬랙스 상세페이지 열기"><div class="ph"><img src="img/3853373-0.jpg" alt="" loading="lazy" style="object-position:center 40%"><span class="bd warn">환불</span><span class="go">상세 ↗</span></div><div class="tx"><span class="br">시야쥬 · 무신사</span><span class="nm">원턱 루즈핏 부츠컷 슬랙스</span><span class="mt">차콜 · S</span><span class="pr">83,700원<s>93,000원</s></span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:var(--sw-greige)"></span><h2>그레이지 베이지</h2><span class="note">진짜 세트</span><span class="sum">세트 155,800원</span></div><ul class="grid"><li><a class="card" href="https://www.musinsa.com/products/3874701" target="_blank" rel="noopener" aria-label="비지트인뉴욕 셋업 테일러드 싱글 투버튼 재킷 상세페이지 열기"><div class="ph"><img src="img/3874701-0.jpg" alt="" loading="lazy" style="object-position:center 30%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">비지트인뉴욕 · 무신사</span><span class="nm">셋업 테일러드 싱글 투버튼 재킷</span><span class="mt">그레이지 베이지 · 055</span><span class="pr">95,900원<s>229,000원</s></span></div></a></li><li><a class="card" href="https://www.musinsa.com/products/4198535" target="_blank" rel="noopener" aria-label="비지트인뉴욕 셋업 슬림 부츠컷 팬츠 상세페이지 열기"><div class="ph"><img src="img/4198535-0.jpg" alt="" loading="lazy" style="object-position:center 60%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">비지트인뉴욕 · 무신사</span><span class="nm">셋업 슬림 부츠컷 팬츠</span><span class="mt">그레이지 베이지 · 055</span><span class="pr">59,900원<s>149,000원</s></span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:var(--sw-beige)"></span><h2>다크 베이지</h2><span class="note">톤온톤</span><span class="sum">세트 129,790원</span></div><ul class="grid"><li><a class="card" href="https://www.musinsa.com/products/2149534" target="_blank" rel="noopener" aria-label="무신사 스탠다드 우먼즈 베이식 블레이저 상세페이지 열기"><div class="ph"><img src="img/2149534-0.jpg" alt="" loading="lazy" style="object-position:center 25%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">무신사 스탠다드 · 무신사</span><span class="nm">우먼즈 베이식 블레이저</span><span class="mt">다크 베이지 · S</span><span class="pr">79,890원<s>99,900원</s></span></div></a></li><li><a class="card" href="https://www.musinsa.com/products/6272202" target="_blank" rel="noopener" aria-label="무신사 스탠다드 우먼즈 세미 부츠 컷 히든 밴딩 슬랙스 상세페이지 열기"><div class="ph"><img src="img/6272202-0.jpg" alt="" loading="lazy" style="object-position:center 75%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">무신사 스탠다드 · 무신사</span><span class="nm">우먼즈 세미 부츠 컷 히든 밴딩 슬랙스</span><span class="mt">다크 베이지 · 25</span><span class="pr">49,900원</span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:var(--sw-navy)"></span><h2>네이비</h2><span class="tag ok">구매함</span><span class="note">색 잘 맞음</span><span class="sum">세트 136,790원</span></div><ul class="grid"><li><a class="card" href="https://www.musinsa.com/products/1618311" target="_blank" rel="noopener" aria-label="무신사 스탠다드 우먼즈 오버사이즈 블레이저 상세페이지 열기"><div class="ph"><img src="img/1618311-0.jpg" alt="" loading="lazy" style="object-position:center 30%"><span class="bd ok">구매함</span><span class="go">상세 ↗</span></div><div class="tx"><span class="br">무신사 스탠다드 · 무신사</span><span class="nm">우먼즈 오버사이즈 블레이저</span><span class="mt">네이비 · S</span><span class="pr">99,900원</span></div></a></li><li><a class="card" href="https://www.musinsa.com/products/6525757" target="_blank" rel="noopener" aria-label="무신사 스탠다드 우먼즈 플레어 히든 밴딩 슬랙스 상세페이지 열기"><div class="ph"><img src="img/6525757-0.jpg" alt="" loading="lazy" style="object-position:center 75%"><span class="bd ok">구매함</span><span class="go">상세 ↗</span></div><div class="tx"><span class="br">무신사 스탠다드 · 무신사</span><span class="nm">우먼즈 플레어 히든 밴딩 슬랙스</span><span class="mt">네이비 · 25</span><span class="pr">36,890원<s>49,900원</s></span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><span class="dot" style="background:var(--sw-grey)"></span><h2>차콜 톤 그레이</h2><span class="note">색 코드 같음</span><span class="sum">세트 134,280원</span></div><ul class="grid"><li><a class="card" href="https://www.musinsa.com/products/1618309" target="_blank" rel="noopener" aria-label="무신사 스탠다드 우먼즈 오버사이즈 블레이저 상세페이지 열기"><div class="ph"><img src="img/1618309-0.jpg" alt="" loading="lazy" style="object-position:center 30%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">무신사 스탠다드 · 무신사</span><span class="nm">우먼즈 오버사이즈 블레이저</span><span class="mt">차콜 톤 그레이 · S</span><span class="pr">89,890원<s>99,900원</s></span></div></a></li><li><a class="card" href="https://www.musinsa.com/products/6525758" target="_blank" rel="noopener" aria-label="무신사 스탠다드 우먼즈 플레어 히든 밴딩 슬랙스 상세페이지 열기"><div class="ph"><img src="img/6525758-0.jpg" alt="" loading="lazy" style="object-position:center 75%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">무신사 스탠다드 · 무신사</span><span class="nm">우먼즈 플레어 히든 밴딩 슬랙스</span><span class="mt">차콜 톤 그레이 · 25</span><span class="pr">44,390원<s>49,900원</s></span></div></a></li></ul></section>
+<p class="foot">가격은 2026.11.10 기준 판매가(쿠폰 전)예요. 사이즈는 상의 S(55) · 하의 25(55) 기준이에요.</p>
 </div>
-</div>
-
-<div class="bar" role="region" aria-label="선택 합계">
-  <div class="in">
-    <div><div class="count" id="count"></div><div class="total" id="total"></div></div>
-    <button type="button" id="toggle">전체 해제</button>
-    <a class="go" href="https://www.musinsa.com/order/cart" target="_blank" rel="noopener">무신사 장바구니 열기 ↗</a>
-  </div>
-</div>
-
-<script>
-(function(){
-  var KEY='cart-sets-v1';
-  var boxes=[].slice.call(document.querySelectorAll('.item input[type=checkbox]'));
-  var fmt=function(n){return n.toLocaleString('ko-KR')+'원'};
-  try{var saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved)boxes.forEach(function(b){if(b.id in saved)b.checked=saved[b.id]});}catch(e){}
-  function render(){
-    var total=0,n=0,state={};
-    document.querySelectorAll('.look').forEach(function(sec){
-      var s=0;sec.querySelectorAll('input[type=checkbox]').forEach(function(b){if(b.checked)s+=+b.dataset.price});
-      sec.querySelector('[data-sum]').textContent=fmt(s);
-    });
-    boxes.forEach(function(b){state[b.id]=b.checked;if(b.checked){total+=+b.dataset.price;n++}});
-    document.getElementById('total').textContent=fmt(total);
-    document.getElementById('count').textContent='선택 '+n+'개 / 전체 '+boxes.length+'개 · 판매가 합계';
-    document.getElementById('toggle').textContent=n===boxes.length?'전체 해제':'전체 선택';
-    try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}
-  }
-  boxes.forEach(function(b){b.addEventListener('change',render)});
-  document.getElementById('toggle').addEventListener('click',function(){
-    var all=boxes.every(function(b){return b.checked});boxes.forEach(function(b){b.checked=!all});render();
-  });
-  render();
-})();
-</script>
-
-<style id="thumb-size">.look{grid-template-columns:200px minmax(0,1fr)!important;gap:28px!important;padding-block:28px!important}.look .frame{max-width:200px}.look .caption{max-width:200px;font-size:11px}.look .tag{font-size:10px}@media (max-width:720px){.look{grid-template-columns:1fr!important;gap:16px!important}}</style>
-<!-- 사진 크게 보기 (룩북 뷰어) -->
-<style id="lbx-style">
-.zoomable{cursor:zoom-in;transition:opacity .15s}
-.zoomable:hover{opacity:.88}
-.lbx{position:fixed;inset:0;z-index:100;background:rgba(18,16,14,.94);display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;
-  padding:56px max(16px,env(safe-area-inset-right,0px)) max(20px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
-.lbx.on{display:flex}
-.lbx figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:10px;max-width:100%}
-.lbx img{display:block;max-width:min(92vw,960px);max-height:78vh;object-fit:contain;border-radius:4px;background:#f4f3f1}
-.lbx figcaption{color:#ece8e2;font-size:14px;line-height:1.5;text-align:center;max-width:60ch}
-.lbx .cnt{color:#a39d94;font-size:12px;font-variant-numeric:tabular-nums}
-.lbx button{position:absolute;border:0;border-radius:999px;width:44px;height:44px;font-size:24px;line-height:44px;color:#fff;background:rgba(255,255,255,.14);cursor:pointer}
-.lbx button:hover,.lbx button:focus-visible{background:rgba(255,255,255,.28);outline:none}
-.lbx .x{top:12px;right:max(12px,env(safe-area-inset-right,0px))}
-.lbx .p{left:max(10px,env(safe-area-inset-left,0px));top:50%;transform:translateY(-50%)}
-.lbx .n{right:max(10px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%)}
-.lbx .strip{display:flex;gap:6px;overflow-x:auto;max-width:min(92vw,960px);padding:4px 0;scrollbar-width:thin}
-.lbx .strip img{width:44px;height:54px;max-height:none;object-fit:cover;opacity:.5;cursor:pointer;flex:none;border-radius:2px}
-.lbx .strip img.cur{opacity:1;outline:2px solid #ece8e2}
-@media (max-width:600px){.lbx .p,.lbx .n{top:auto;bottom:max(70px,env(safe-area-inset-bottom,0px));transform:none}}
-</style>
-<div class="lbx" role="dialog" aria-modal="true" aria-label="사진 크게 보기">
-  <button class="x" type="button" aria-label="닫기">×</button>
-  <button class="p" type="button" aria-label="이전 사진">‹</button>
-  <figure><img alt=""><figcaption></figcaption><div class="cnt"></div></figure>
-  <div class="strip" aria-hidden="true"></div>
-  <button class="n" type="button" aria-label="다음 사진">›</button>
-</div>
-<script>
-(function(){
-  var box=document.querySelector('.lbx'); if(!box) return;
-  var big=box.querySelector('figure img'), cap=box.querySelector('figcaption'), cnt=box.querySelector('.cnt'), strip=box.querySelector('.strip');
-  var list=[], seen={}, cur=0, last=null;
-  function label(img){
-    if(img.alt) return img.alt;
-    var it=img.closest('.item'); if(it&&it.querySelector('.nm')) return it.querySelector('.nm').textContent;
-    var c=img.closest('.card'); if(c&&c.querySelector('.nm')) return c.querySelector('.nm').textContent;
-    return '';
-  }
-  [].slice.call(document.querySelectorAll('img')).forEach(function(img){
-    if(img.closest('.lbx')||img.closest('.menu')) return;
-    var s=img.getAttribute('src'); if(!s) return;
-    if(!(s in seen)){ seen[s]=list.length; list.push({src:s,alt:label(img)}); }
-    img.classList.add('zoomable'); img.setAttribute('tabindex','0'); img.setAttribute('role','button');
-    if(!img.getAttribute('aria-label')) img.setAttribute('aria-label',(label(img)||'사진')+' 크게 보기');
-    img.addEventListener('click',function(e){e.preventDefault();open(seen[s],img)});
-    img.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open(seen[s],img)}});
-  });
-  list.forEach(function(it,i){var t=document.createElement('img');t.src=it.src;t.alt='';t.addEventListener('click',function(){cur=i;show()});strip.appendChild(t)});
-  function show(){
-    var it=list[cur]; big.src=it.src; big.alt=it.alt; cap.textContent=it.alt; cnt.textContent=(cur+1)+' / '+list.length;
-    [].forEach.call(strip.children,function(t,i){t.classList.toggle('cur',i===cur); if(i===cur) t.scrollIntoView({block:'nearest',inline:'center'})});
-  }
-  function open(i,from){cur=i; last=from; show(); box.classList.add('on'); document.body.style.overflow='hidden'; box.querySelector('.x').focus()}
-  function close(){box.classList.remove('on'); document.body.style.overflow=''; if(last) last.focus()}
-  function step(d){cur=(cur+d+list.length)%list.length; show()}
-  box.querySelector('.x').addEventListener('click',close);
-  box.querySelector('.p').addEventListener('click',function(){step(-1)});
-  box.querySelector('.n').addEventListener('click',function(){step(1)});
-  box.addEventListener('click',function(e){if(e.target===box) close()});
-  document.addEventListener('keydown',function(e){if(!box.classList.contains('on')) return; if(e.key==='Escape') close(); else if(e.key==='ArrowLeft') step(-1); else if(e.key==='ArrowRight') step(1)});
-  var sx=null; box.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
-  box.addEventListener('touchend',function(e){if(sx===null) return; var dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>50) step(dx<0?1:-1); sx=null});
-})();
-</script>
-
 </body>
 </html>

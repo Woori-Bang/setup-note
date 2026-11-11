@@ -3,78 +3,68 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>사계절 캐주얼 노트</title>
+<title>사계절 캐주얼</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap">
 <style>
-:root{
-  --bg:#eeece8; --paper:#f8f7f4; --fg:#22201d; --muted:#6a655e; --line:#d8d3cb;
-  --ink:#3b3226; --ink-fg:#f6f3ee; --warn:#9a3d1f; --hi:#efe4cf;
-  --f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#171614; --paper:#201e1b; --fg:#ece8e2; --muted:#a39d94; --line:#36322d;
-  --ink:#e4dccf; --ink-fg:#1b1916; --warn:#f0a07f; --hi:#3a3226; color-scheme:dark }}
-:root[data-theme="dark"]{
-  --bg:#171614; --paper:#201e1b; --fg:#ece8e2; --muted:#a39d94; --line:#36322d;
-  --ink:#e4dccf; --ink-fg:#1b1916; --warn:#f0a07f; --hi:#3a3226; color-scheme:dark }
+:root{--bg:#eeece8;--paper:#f8f7f4;--fg:#22201d;--muted:#6a655e;--line:#d8d3cb;--ink:#3b3226;--ink-fg:#f6f3ee;--ok:#3f6b4a;--warn:#9a3d1f;
+  --f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#171614;--paper:#201e1b;--fg:#ece8e2;--muted:#a39d94;--line:#36322d;--ink:#e4dccf;--ink-fg:#1b1916;--ok:#8fc39c;--warn:#f0a07f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#171614;--paper:#201e1b;--fg:#ece8e2;--muted:#a39d94;--line:#36322d;--ink:#e4dccf;--ink-fg:#1b1916;--ok:#8fc39c;--warn:#f0a07f;color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f);font-size:15px;line-height:1.6;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:64px}
-.wrap{max-width:1040px;margin:0 auto}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:56px}
+.wrap{max-width:1080px;margin:0 auto}
 a{color:inherit}
-a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-
-/* 공통 메뉴 */
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
 .menu{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line);
   margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:10px max(16px,env(safe-area-inset-left,0px))}
-.menu .in{max-width:1040px;margin:0 auto;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none}
+.menu .in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none}
 .menu a{flex:none;text-decoration:none;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;color:var(--muted);white-space:nowrap}
 .menu a:hover{color:var(--fg);background:var(--paper)}
 .menu a[aria-current="page"]{color:var(--ink-fg);background:var(--ink)}
 .menu .lb{margin-left:auto;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);color:var(--fg)}
+.menu .lb[aria-current="page"]{border-color:var(--ink);background:var(--ink);color:var(--ink-fg)}
 .menu .lb svg{width:16px;height:16px}
-
-header{padding-block:28px 24px;display:grid;gap:12px;border-bottom:1px solid var(--line)}
-.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted)}
-h1{font-weight:800;font-size:clamp(28px,5vw,42px);line-height:1.2;margin:0;text-wrap:balance}
-.lede{margin:0;color:var(--muted);max-width:62ch}
-
-.feature{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:32px;padding-block:32px;border-bottom:1px solid var(--line)}
-@media (max-width:760px){.feature{grid-template-columns:1fr;gap:20px}}
-.gallery{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:6px;aspect-ratio:4/4.4}
-.gallery img{width:100%;height:100%;object-fit:cover;display:block;border-radius:2px;background:var(--line);min-height:0}
-.gallery .main{grid-row:1 / 4}
-.cap{font-size:12px;color:var(--muted);margin-top:8px}
-
-.info{display:flex;flex-direction:column;gap:16px;min-width:0}
-.brand{font-size:13px;color:var(--muted);font-weight:600}
-.info h2{margin:0;font-size:24px;font-weight:800;line-height:1.25}
-.badges{display:flex;gap:6px;flex-wrap:wrap}
-.badges span{font-size:12px;border:1px solid var(--line);background:var(--paper);padding:3px 10px;border-radius:999px}
-.prices{display:grid;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:14px 16px;font-variant-numeric:tabular-nums}
-.prices .row{display:flex;justify-content:space-between;gap:12px;font-size:14px}
-.prices .row.big{font-size:18px;font-weight:700}
-.prices s{color:var(--muted)}
-.prices .pct{color:var(--warn);font-weight:700;margin-right:6px}
-table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums;background:var(--paper);border:1px solid var(--line);border-radius:4px;overflow:hidden}
-th,td{padding:7px 12px;text-align:left;border-bottom:1px solid var(--line)}
-thead th{font-size:12px;color:var(--muted);font-weight:600}
-tbody tr:last-child td{border-bottom:0}
-td.s{background:var(--hi);font-weight:700}
-.note{font-size:13px;color:var(--muted);margin:0}
-.good{color:var(--fg);font-weight:600}
-.buy{align-self:flex-start;display:inline-flex;gap:6px;font-size:14px;font-weight:700;text-decoration:none;color:var(--ink-fg);background:var(--ink);padding:9px 16px;border-radius:2px}
-.buy:hover{opacity:.85}
-
-section.block{padding-block:28px;border-bottom:1px solid var(--line)}
-section.block h3{margin:0 0 12px;font-size:20px;font-weight:800}
-.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:14px 16px;display:grid;gap:6px;align-content:start}
-.card h4{margin:0;font-size:15px;font-weight:700}
-.card p,.card ul{margin:0;font-size:13px;color:var(--muted)}
-.card ul{padding-left:18px}
-.foot{margin-top:24px;font-size:12px;color:var(--muted)}
+header.page{padding-block:26px 6px}
+header.page h1{font-weight:800;font-size:clamp(26px,4.5vw,36px);line-height:1.2;margin:0 0 6px}
+header.page p{margin:0;color:var(--muted);font-size:14px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:18px}
+@media (max-width:640px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.stat .k{font-size:12px;color:var(--muted)}
+.stat .v{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+.stat .s{font-size:11px;color:var(--muted)}
+section.grp{padding-top:26px}
+.ghead{display:flex;align-items:center;gap:6px 10px;flex-wrap:wrap;margin-bottom:10px}
+.ghead h2{font-size:17px;font-weight:800;margin:0;line-height:1.3}
+.ghead .dot{width:14px;height:14px;border-radius:50%;flex:none;border:1px solid var(--line)}
+.ghead .note{font-size:12px;color:var(--muted)}
+.ghead .tag{font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;border:1px solid currentColor}
+.ghead .tag.ok{color:var(--ok)}
+.ghead .tag.warn{color:var(--warn)}
+.ghead .sum{margin-left:auto;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px 12px;list-style:none;margin:0;padding:0}
+@media (max-width:420px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{display:block;text-decoration:none;color:inherit}
+.card .ph{position:relative;aspect-ratio:4/5;border-radius:6px;overflow:hidden;background:var(--line)}
+.card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
+.card:hover img{transform:scale(1.03)}
+.card .bd{position:absolute;left:8px;top:8px;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--paper);color:var(--fg)}
+.card .bd.ok{color:var(--ok)}
+.card .bd.warn{color:var(--warn)}
+.card .go{position:absolute;right:8px;bottom:8px;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:rgba(0,0,0,.55);color:#fff;opacity:0;transition:opacity .2s}
+.card:hover .go,.card:focus-visible .go{opacity:1}
+@media (hover:none){.card .go{opacity:1}}
+.card .tx{padding:8px 2px 0;display:grid;gap:1px}
+.card .br{font-size:11px;color:var(--muted);font-weight:600}
+.card .nm{font-size:13px;font-weight:600;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .mt{font-size:12px;color:var(--muted)}
+.card .pr{font-size:14px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:2px}
+.card .pr s{font-size:11px;font-weight:400;color:var(--muted);margin-left:5px}
+.card.refund .ph img{opacity:.45}
+.card.refund .pr{text-decoration:line-through;color:var(--muted)}
+.foot{margin-top:30px;font-size:12px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -85,183 +75,10 @@ section.block h3{margin:0 0 12px;font-size:20px;font-weight:800}
   <a href="ledger.html">옷 가계부</a>
   <a class="lb" href="inner.html" title="이너 룩북"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7.5" height="9" rx="1"/><rect x="13.5" y="3" width="7.5" height="5.5" rx="1"/><rect x="13.5" y="11.5" width="7.5" height="9.5" rx="1"/><rect x="3" y="15" width="7.5" height="6" rx="1"/></svg>이너 룩북</a>
 </div></nav>
-
 <div class="wrap">
-<header>
-  <div class="eyebrow">사계절 캐주얼 · 29CM · 2026.11.10 판매가</div>
-  <h1>사계절 캐주얼, 데일리로 돌려 입는 팬츠 두 벌</h1>
-  <p class="lede">계절 상관없이 데일리로 돌려 입는 캐주얼 아이템을 모아 두는 페이지예요. 첫 아이템은 마조네 스트레이트 코튼 팬츠예요. 워시드 가공한 톤다운 퍼플이라 무채색 대신 쓰기 좋다는 후기가 있어요.</p>
-</header>
-
-<section class="feature">
-  <div>
-    <div class="gallery">
-      <img class="main" src="img/pp-full.jpg" alt="퍼플 코튼 팬츠에 스트라이프 니트를 입은 전신 사진">
-      <img src="img/pp-scarf.jpg" alt="퍼플 팬츠에 옐로 스카프로 포인트를 준 착용 사진">
-      <img src="img/pp-jacket.jpg" alt="퍼플 팬츠에 아이보리 필드 재킷을 걸친 착용 사진">
-      <img src="img/pp-flat.jpg" alt="퍼플 스트레이트 팬츠 앞면 제품 사진">
-    </div>
-    <div class="cap">마조네 상품 사진 · 스트라이프 니트 / 옐로 스카프 / 아이보리 재킷 / 제품 앞면</div>
-  </div>
-  <div class="info">
-    <div class="brand">마조네 MA JOURNÉE</div>
-    <h2>STRAIGHT COTTON PANTS_PURPLE</h2>
-    <div class="badges"><span>면 100%</span><span>스트레이트 핏</span><span>S·M</span><span>후기 3개 · 찜 479</span><span>2026년 9월 제조</span></div>
-    <div class="prices">
-      <div class="row"><span>정가</span><s>112,000원</s></div>
-      <div class="row"><span>판매가</span><span><span class="pct">28%</span>80,640원</span></div>
-      <div class="row big"><span>쿠폰 적용가</span><span><span class="pct">35%</span>72,580원</span></div>
-      <div class="row"><span>무신사 삼성카드 결제 시</span><span>42,580원</span></div>
-    </div>
-    <table>
-      <thead><tr><th>치수(cm)</th><th>S</th><th>M</th></tr></thead>
-      <tbody>
-        <tr><td>총장</td><td class="s">103</td><td>104</td></tr>
-        <tr><td>허리단면</td><td class="s">35</td><td>37.5</td></tr>
-        <tr><td>엉덩이단면</td><td class="s">49</td><td>51.5</td></tr>
-        <tr><td>허벅지단면</td><td class="s">31</td><td>33</td></tr>
-        <tr><td>밑위</td><td class="s">28</td><td>29</td></tr>
-        <tr><td>밑단단면</td><td class="s">24</td><td>25</td></tr>
-      </tbody>
-    </table>
-    <p class="note"><span class="good">S 추천.</span> 허리 35cm는 잘 맞는 무탠 플레어 25(35.25cm)와 거의 같아요. 인심(총장−밑위)은 75cm로, 플레어(77cm)보다 2cm 짧고 시야쥬 바지(72cm)보다 3cm 길어요. 플랫 슈즈보다는 굽 있는 신발이 안전해요.</p>
-    <a class="buy" href="https://www.29cm.co.kr/products/4167652" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-  </div>
-</section>
-
-<section class="block">
-  <h3>후기와 체크 포인트</h3>
-  <div class="cols">
-    <div class="card"><h4>후기 (3개)</h4><ul><li>159cm·56kg S "사이즈 잘 맞고 소재가 부들부들 매끈"</li><li>156cm·54kg M "워시드 컬러와 소재가 좋고, 톤다운 퍼플이라 무채색 대신 쓰기 좋다"</li><li>질감이 따뜻해서 한겨울에도 내복과 함께 가능하다는 평</li></ul></div>
-    <div class="card"><h4>봄웜톤 컬러 팁</h4><ul><li>퍼플은 원래 쿨톤 색이에요. 이 제품은 붉은 기가 도는 톤다운 플럼이라 얼굴에서 먼 하의로 입으면 부담이 적어요</li><li>얼굴 가까이엔 크림·버터·카멜 같은 따뜻한 색을 두세요</li><li>모델처럼 옐로 스카프를 더하면 웜톤 포인트가 돼요</li></ul></div>
-    <div class="card"><h4>소재·관리</h4><ul><li>면 100% 탄탄한 조직감, 드라이클리닝 권장</li><li>사계절 데일리. 한여름엔 다소 더울 수 있어요</li><li>후기가 아직 3개뿐이라 핏 정보가 적어요</li></ul></div>
-  </div>
-</section>
-
-<section class="block">
-  <h3>사계절 코디 공식</h3>
-  <div class="cols">
-    <div class="card"><h4>봄 · 스트라이프 니트 + 옐로 스카프</h4><p>모델 착장 그대로. 블랙·아이보리 스트라이프 니트에 머스터드 스카프로 웜톤 포인트.</p></div>
-    <div class="card"><h4>여름 · 화이트 티 + 로퍼</h4><p>무탠 화이트 크루넥 티를 넣어 입고 갈색 벨트. 퍼플이 무채색처럼 차분하게 받쳐줘요.</p></div>
-    <div class="card"><h4>가을 · 아이보리 필드 재킷</h4><p>사진처럼 아이보리 아우터를 걸치면 퍼플이 한결 부드러워 보여요. 버터 크림 니트도 잘 맞아요.</p></div>
-    <div class="card"><h4>겨울 · 카멜 하프코트 + 크림 터틀넥</h4><p><a href="winter.html">겨울 캐주얼</a>
-  <a href="ledger.html">옷 가계부</a>의 마조네 카멜 코트와 같은 브랜드 조합. 이너는 <a href="inner.html">이너 룩북</a> 참고.</p></div>
-  </div>
-</section>
-
-<section class="feature">
-  <div>
-    <div class="gallery">
-      <img class="main" src="img/dn-full.jpg" alt="딥블루 스트레이트 데님에 그레이 카디건을 입은 전신 사진">
-      <img src="img/dn-style.jpg" alt="딥블루 데님에 베이지 재킷과 로퍼를 매치한 사진">
-      <img src="img/dn-front.jpg" alt="딥블루 스트레이트 데님 정면 착용 사진">
-      <img src="img/dn-flat.jpg" alt="딥블루 스트레이트 데님 제품 사진">
-    </div>
-    <div class="cap">몽돌 상품 사진 · 그레이 카디건 / 베이지 재킷 + 로퍼 / 정면 / 제품</div>
-  </div>
-  <div class="info">
-    <div class="brand">몽돌 MONGDOL</div>
-    <h2>[Premium] 스트레이트 데님 진 딥블루</h2>
-    <div class="badges"><span>면 100%</span><span>스트레이트 핏</span><span>S·M·L</span><span>후기 245개 · 찜 7.9천</span><span>무료배송</span></div>
-    <div class="prices">
-      <div class="row"><span>정가</span><s>99,000원</s></div>
-      <div class="row big"><span>판매가</span><span><span class="pct">54%</span>45,690원</span></div>
-    </div>
-    <table>
-      <thead><tr><th>치수(cm)</th><th>S</th><th>M</th></tr></thead>
-      <tbody>
-        <tr><td>총장</td><td class="s">104</td><td>106</td></tr>
-        <tr><td>허리단면</td><td class="s">36.5</td><td>38.5</td></tr>
-        <tr><td>엉덩이단면</td><td class="s">50</td><td>52</td></tr>
-        <tr><td>허벅지단면</td><td class="s">30.5</td><td>31</td></tr>
-        <tr><td>밑위</td><td class="s">29</td><td>29.5</td></tr>
-        <tr><td>밑단단면</td><td class="s">23</td><td>23.5</td></tr>
-      </tbody>
-    </table>
-    <p class="note"><span class="good">S 추천.</span> 인심(총장−밑위)이 75cm라 발등을 덮는 기장이에요. 허리 36.5cm로 플레어 25(35.25cm)보다 1cm쯤 여유 있어요 — 후기에도 "S가 편안하게 맞는다", "허리가 살짝 커서 수선"이 섞여 있어요.</p>
-    <a class="buy" href="https://www.29cm.co.kr/products/2851092" target="_blank" rel="noopener">29CM에서 보기 ↗</a>
-  </div>
-</section>
-
-<section class="block">
-  <h3>데님 후기와 코디</h3>
-  <div class="cols">
-    <div class="card"><h4>후기 요약 (245개)</h4><ul><li>159~166cm S "잘 맞아요"가 대부분, 160cm대는 기장 수선 없이 입었다는 후기</li><li>"도톰해서 겨울까지" — 사계절 중 봄·가을·겨울에 특히 좋아요</li><li>⚠️ 허리 단추 구멍이 작아 잠그기 힘들다는 후기가 여러 개 있어요</li></ul></div>
-    <div class="card"><h4>봄웜톤 컬러 팁</h4><ul><li>진청(딥블루)은 쿨한 색이라 위에 크림·카멜·베이지를 두면 얼굴이 환해요</li><li>사진처럼 베이지 재킷 + 브라운 로퍼가 가장 안전한 조합</li></ul></div>
-    <div class="card"><h4>이 페이지 아이템과 함께</h4><ul><li>퍼플 코튼 팬츠 대신 주말 데일리 하의로</li><li><a href="winter.html">겨울 캐주얼</a>
-  <a href="ledger.html">옷 가계부</a> 카멜 하프코트와 진청 데님은 정석 조합</li><li>이너는 <a href="inner.html">이너 룩북</a>의 크림 터틀넥·오트밀 니트</li></ul></div>
-  </div>
-</section>
-
-<div class="foot">가격은 2026.11.10 29CM 기준이에요(쿠폰은 계정마다 다를 수 있어요). 재고는 상품 페이지에서 다시 확인해 주세요.</div>
+<header class="page"><h1>사계절 캐주얼</h1><p>계절 상관없이 데일리로 돌려 입는 아이템 · 사진을 누르면 상세페이지로 이동해요.</p></header>
+<section class="grp"><div class="ghead"><h2>팬츠</h2></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/4167652" target="_blank" rel="noopener" aria-label="마조네 스트레이트 코튼 팬츠 상세페이지 열기"><div class="ph"><img src="img/pp-full.jpg" alt="" loading="lazy" style="object-position:center 60%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">마조네 · 29CM</span><span class="nm">스트레이트 코튼 팬츠</span><span class="mt">퍼플 · S</span><span class="pr">80,640원<s>112,000원</s></span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/2851092" target="_blank" rel="noopener" aria-label="몽돌 [Premium] 스트레이트 데님 진 상세페이지 열기"><div class="ph"><img src="img/dn-full.jpg" alt="" loading="lazy" style="object-position:center 60%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">몽돌 · 29CM</span><span class="nm">[Premium] 스트레이트 데님 진</span><span class="mt">딥블루 · S</span><span class="pr">45,690원<s>99,000원</s></span></div></a></li></ul></section>
+<p class="foot">가격은 2026.11.10 29CM 판매가(쿠폰 전)예요.</p>
 </div>
-
-<style id="thumb-size">.feature{grid-template-columns:minmax(0,340px) minmax(0,1fr)!important}.gallery{max-width:340px}@media (max-width:760px){.feature{grid-template-columns:1fr!important}}</style>
-<!-- 사진 크게 보기 (룩북 뷰어) -->
-<style id="lbx-style">
-.zoomable{cursor:zoom-in;transition:opacity .15s}
-.zoomable:hover{opacity:.88}
-.lbx{position:fixed;inset:0;z-index:100;background:rgba(18,16,14,.94);display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;
-  padding:56px max(16px,env(safe-area-inset-right,0px)) max(20px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
-.lbx.on{display:flex}
-.lbx figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:10px;max-width:100%}
-.lbx img{display:block;max-width:min(92vw,960px);max-height:78vh;object-fit:contain;border-radius:4px;background:#f4f3f1}
-.lbx figcaption{color:#ece8e2;font-size:14px;line-height:1.5;text-align:center;max-width:60ch}
-.lbx .cnt{color:#a39d94;font-size:12px;font-variant-numeric:tabular-nums}
-.lbx button{position:absolute;border:0;border-radius:999px;width:44px;height:44px;font-size:24px;line-height:44px;color:#fff;background:rgba(255,255,255,.14);cursor:pointer}
-.lbx button:hover,.lbx button:focus-visible{background:rgba(255,255,255,.28);outline:none}
-.lbx .x{top:12px;right:max(12px,env(safe-area-inset-right,0px))}
-.lbx .p{left:max(10px,env(safe-area-inset-left,0px));top:50%;transform:translateY(-50%)}
-.lbx .n{right:max(10px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%)}
-.lbx .strip{display:flex;gap:6px;overflow-x:auto;max-width:min(92vw,960px);padding:4px 0;scrollbar-width:thin}
-.lbx .strip img{width:44px;height:54px;max-height:none;object-fit:cover;opacity:.5;cursor:pointer;flex:none;border-radius:2px}
-.lbx .strip img.cur{opacity:1;outline:2px solid #ece8e2}
-@media (max-width:600px){.lbx .p,.lbx .n{top:auto;bottom:max(70px,env(safe-area-inset-bottom,0px));transform:none}}
-</style>
-<div class="lbx" role="dialog" aria-modal="true" aria-label="사진 크게 보기">
-  <button class="x" type="button" aria-label="닫기">×</button>
-  <button class="p" type="button" aria-label="이전 사진">‹</button>
-  <figure><img alt=""><figcaption></figcaption><div class="cnt"></div></figure>
-  <div class="strip" aria-hidden="true"></div>
-  <button class="n" type="button" aria-label="다음 사진">›</button>
-</div>
-<script>
-(function(){
-  var box=document.querySelector('.lbx'); if(!box) return;
-  var big=box.querySelector('figure img'), cap=box.querySelector('figcaption'), cnt=box.querySelector('.cnt'), strip=box.querySelector('.strip');
-  var list=[], seen={}, cur=0, last=null;
-  function label(img){
-    if(img.alt) return img.alt;
-    var it=img.closest('.item'); if(it&&it.querySelector('.nm')) return it.querySelector('.nm').textContent;
-    var c=img.closest('.card'); if(c&&c.querySelector('.nm')) return c.querySelector('.nm').textContent;
-    return '';
-  }
-  [].slice.call(document.querySelectorAll('img')).forEach(function(img){
-    if(img.closest('.lbx')||img.closest('.menu')) return;
-    var s=img.getAttribute('src'); if(!s) return;
-    if(!(s in seen)){ seen[s]=list.length; list.push({src:s,alt:label(img)}); }
-    img.classList.add('zoomable'); img.setAttribute('tabindex','0'); img.setAttribute('role','button');
-    if(!img.getAttribute('aria-label')) img.setAttribute('aria-label',(label(img)||'사진')+' 크게 보기');
-    img.addEventListener('click',function(e){e.preventDefault();open(seen[s],img)});
-    img.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open(seen[s],img)}});
-  });
-  list.forEach(function(it,i){var t=document.createElement('img');t.src=it.src;t.alt='';t.addEventListener('click',function(){cur=i;show()});strip.appendChild(t)});
-  function show(){
-    var it=list[cur]; big.src=it.src; big.alt=it.alt; cap.textContent=it.alt; cnt.textContent=(cur+1)+' / '+list.length;
-    [].forEach.call(strip.children,function(t,i){t.classList.toggle('cur',i===cur); if(i===cur) t.scrollIntoView({block:'nearest',inline:'center'})});
-  }
-  function open(i,from){cur=i; last=from; show(); box.classList.add('on'); document.body.style.overflow='hidden'; box.querySelector('.x').focus()}
-  function close(){box.classList.remove('on'); document.body.style.overflow=''; if(last) last.focus()}
-  function step(d){cur=(cur+d+list.length)%list.length; show()}
-  box.querySelector('.x').addEventListener('click',close);
-  box.querySelector('.p').addEventListener('click',function(){step(-1)});
-  box.querySelector('.n').addEventListener('click',function(){step(1)});
-  box.addEventListener('click',function(e){if(e.target===box) close()});
-  document.addEventListener('keydown',function(e){if(!box.classList.contains('on')) return; if(e.key==='Escape') close(); else if(e.key==='ArrowLeft') step(-1); else if(e.key==='ArrowRight') step(1)});
-  var sx=null; box.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
-  box.addEventListener('touchend',function(e){if(sx===null) return; var dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>50) step(dx<0?1:-1); sx=null});
-})();
-</script>
-
 </body>
 </html>
