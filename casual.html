@@ -44,8 +44,12 @@ section.grp{padding-top:26px}
 .ghead .tag.ok{color:var(--ok)}
 .ghead .tag.warn{color:var(--warn)}
 .ghead .sum{margin-left:auto;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px 12px;list-style:none;margin:0;padding:0}
-@media (max-width:420px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.gdesc{margin:-4px 0 12px;padding:0;list-style:none;display:grid;gap:2px;font-size:13px;color:var(--muted)}
+.gdesc li::before{content:"· ";color:var(--line)}
+.gdesc li.fab{color:var(--fg)}
+.gdesc li.fab::before{content:""}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:24px 16px;list-style:none;margin:0;padding:0}
+@media (max-width:520px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 10px}}
 .card{display:block;text-decoration:none;color:inherit}
 .card .ph{position:relative;aspect-ratio:4/5;border-radius:6px;overflow:hidden;background:var(--line)}
 .card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
@@ -56,11 +60,15 @@ section.grp{padding-top:26px}
 .card .go{position:absolute;right:8px;bottom:8px;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:rgba(0,0,0,.55);color:#fff;opacity:0;transition:opacity .2s}
 .card:hover .go,.card:focus-visible .go{opacity:1}
 @media (hover:none){.card .go{opacity:1}}
-.card .tx{padding:8px 2px 0;display:grid;gap:1px}
-.card .br{font-size:11px;color:var(--muted);font-weight:600}
-.card .nm{font-size:13px;font-weight:600;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.card .mt{font-size:12px;color:var(--muted)}
-.card .pr{font-size:14px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:2px}
+.card .tx{padding:10px 2px 0;display:grid;gap:2px}
+.card .br{font-size:12px;color:var(--muted);font-weight:600}
+.card .nm{font-size:15px;font-weight:700;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .mt{font-size:13px;color:var(--muted)}
+.card .pr{font-size:16px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:2px}
+.card .dt{font-size:12px;line-height:1.45;color:var(--fg);background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:5px 8px;margin-top:4px;font-variant-numeric:tabular-nums}
+.card .dt+.dt{margin-top:0;border-top:0;border-radius:0 0 4px 4px}
+.card .dt.memo{color:var(--muted)}
+@media (max-width:520px){.card .nm{font-size:14px}.card .pr{font-size:15px}.card .dt{font-size:11px;padding:4px 6px}}
 .card .pr s{font-size:11px;font-weight:400;color:var(--muted);margin-left:5px}
 .card.refund .ph img{opacity:.45}
 .card.refund .pr{text-decoration:line-through;color:var(--muted)}
@@ -77,7 +85,7 @@ section.grp{padding-top:26px}
 </div></nav>
 <div class="wrap">
 <header class="page"><h1>사계절 캐주얼</h1><p>계절 상관없이 데일리로 돌려 입는 아이템 · 사진을 누르면 상세페이지로 이동해요.</p></header>
-<section class="grp"><div class="ghead"><h2>팬츠</h2></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/4167652" target="_blank" rel="noopener" aria-label="마조네 스트레이트 코튼 팬츠 상세페이지 열기"><div class="ph"><img src="img/pp-full.jpg" alt="" loading="lazy" style="object-position:center 60%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">마조네 · 29CM</span><span class="nm">스트레이트 코튼 팬츠</span><span class="mt">퍼플 · S</span><span class="pr">80,640원<s>112,000원</s></span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/2851092" target="_blank" rel="noopener" aria-label="몽돌 [Premium] 스트레이트 데님 진 상세페이지 열기"><div class="ph"><img src="img/dn-full.jpg" alt="" loading="lazy" style="object-position:center 60%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">몽돌 · 29CM</span><span class="nm">[Premium] 스트레이트 데님 진</span><span class="mt">딥블루 · S</span><span class="pr">45,690원<s>99,000원</s></span></div></a></li></ul></section>
+<section class="grp"><div class="ghead"><h2>팬츠</h2></div><ul class="grid"><li><a class="card" href="https://www.29cm.co.kr/products/4167652" target="_blank" rel="noopener" aria-label="마조네 스트레이트 코튼 팬츠 상세페이지 열기"><div class="ph"><img src="img/pp-full.jpg" alt="" loading="lazy" style="object-position:center 60%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">마조네 · 29CM</span><span class="nm">스트레이트 코튼 팬츠</span><span class="mt">퍼플 · S</span><span class="pr">80,640원<s>112,000원</s></span><span class="dt">면 100% · 총장 103 · 밑위 28 · 인심 75 · 허리 35</span><span class="dt memo">톤다운 퍼플이라 무채색처럼 쓰기 좋아요 · 위에는 크림·버터·카멜</span></div></a></li><li><a class="card" href="https://www.29cm.co.kr/products/2851092" target="_blank" rel="noopener" aria-label="몽돌 [Premium] 스트레이트 데님 진 상세페이지 열기"><div class="ph"><img src="img/dn-full.jpg" alt="" loading="lazy" style="object-position:center 60%"><span class="go">상세 ↗</span></div><div class="tx"><span class="br">몽돌 · 29CM</span><span class="nm">[Premium] 스트레이트 데님 진</span><span class="mt">딥블루 · S</span><span class="pr">45,690원<s>99,000원</s></span><span class="dt">면 100% · 총장 104 · 밑위 29 · 인심 75 · 허리 36.5</span><span class="dt memo">후기 245개 · 160cm대 S 잘 맞음 · 허리 단추 구멍이 작다는 후기</span></div></a></li></ul></section>
 <p class="foot">가격은 2026.11.10 29CM 판매가(쿠폰 전)예요.</p>
 </div>
 </body>
